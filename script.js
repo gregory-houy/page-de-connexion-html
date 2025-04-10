@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     errorMessage.textContent = '';
 
     try {
-      const response = await fetch('https://page-de-connexion-html.vercel.app/api/login', {
+      const response = await fetch('https://page-de-connexion-html.vercel.app/api/login.js', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
