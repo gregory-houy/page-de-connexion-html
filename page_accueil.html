@@ -1,73 +1,53 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Page d'accueil</title>
-	<style>
-		body {
-			font-family: sans-serif;
-			background-color: #f4f4f4;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			min-height: 100vh;
-			margin: 0;
-		}
-
-		.container {
-			background-color: white;
-			padding: 30px;
-			border-radius: 8px;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-			text-align: center;
-		}
-
-		h1 {
-			color: #333;
-			margin-bottom: 20px;
-		}
-
-		p {
-			color: #666;
-			margin-bottom: 30px;
-		}
-
-		#logoutBtn {
-			background-color: #007bff;
-			color: white;
-			border: none;
-			padding: 10px 20px;
-			font-size: 16px;
-			border-radius: 5px;
-			cursor: pointer;
-			transition: background-color 0.3s ease;
-		}
-
-		#logoutBtn:hover {
-			background-color: #0056b3;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'Accueil</title>
+    <style>
+        body { font-family: sans-serif; }
+        .container { max-width: 600px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+        h1 { text-align: center; }
+        p { text-align: center; }
+        a { display: block; margin-top: 20px; text-align: center; }
+    </style>
 </head>
 <body>
-	<div class="container">
-		<h1>Bienvenue !</h1>
-		<p>Vous êtes connecté.</p>
-		<button id="logoutBtn">Se déconnecter</button>
-	</div>
+    <div class="container">
+        <h1 id="welcomeMessage">Bienvenue !</h1>
+        <p><a href="gestion_utilisateurs.html">Gestion des Utilisateurs</a></p>
+        <p><a href="index.html">Se déconnecter</a></p>
+    </div>
 
-	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			const username = localStorage.getItem('username');
-			if (!username) {
-				window.location.href = 'index.html';
-			}
+    <script>
+        async function displayWelcomeMessage() {
+            const username = localStorage.getItem('username'); // Supposons que vous stockez le nom d'utilisateur dans le localStorage après la connexion
 
-			document.getElementById('logoutBtn').addEventListener('click', function() {
-				localStorage.removeItem('username');
-				window.location.href = 'index.html';
-			});
-		});
-	</script>
+            if (username) {
+                try {
+                    const response = await fetch(`/api/users?username=${username}`); // Créer une API pour récupérer les détails d'un utilisateur par son nom
+                    if (response.ok) {
+                        const user = await response.json();
+                        if (user && user.prenom) {
+                            document.getElementById('welcomeMessage').textContent = `Bienvenue, ${user.prenom} !`;
+                        } else {
+                            document.getElementById('welcomeMessage').textContent = `Bienvenue, ${username} !`; // Afficher le nom d'utilisateur par défaut si le prénom n'est pas trouvé
+                        }
+                    } else {
+                        console.error("Erreur lors de la récupération des détails de l'utilisateur");
+                        document.getElementById('welcomeMessage').textContent = `Bienvenue, ${username} !`;
+                    }
+                } catch (error) {
+                    console.error("Erreur lors de la communication avec l'API:", error);
+                    document.getElementById('welcomeMessage').textContent = `Bienvenue !`;
+                }
+            } else {
+                // Gérer le cas où l'utilisateur n'est pas connecté (rediriger vers la page de connexion ?)
+                document.getElementById('welcomeMessage').textContent = `Bienvenue !`;
+            }
+        }
+
+        displayWelcomeMessage();
+    </script>
 </body>
 </html>
