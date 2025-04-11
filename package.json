@@ -12,7 +12,6 @@
   "author": "houyg",
   "license": "ISC",
   "dependencies": {
-    // ... vos autres dépendances existantes ...
     "uuid": "^8.3.2"
   }
 }
