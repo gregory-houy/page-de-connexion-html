@@ -7,23 +7,23 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container" id="loginContainer">
-        <h1>Connexion</h1>
-        <hr><br>
-        <form id="loginForm" action="https://page-de-connexion-html.vercel.app/api/login" method="POST">
-            <div class="form-group">
-                <label for="username">Nom d'utilisateur :</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Mot de passe :</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn-primary">Se connecter</button>
-            <div id="errorMessage" class="error-message"></div>
-        </form>
-    </div>
+	<div class="container" id="loginContainer">
+		<h1>Connexion</h1>
+		<hr><br>
+		<form id="loginForm" action="https://page-de-connexion-html.vercel.app/api/login" method="POST">
+			<div class="form-group">
+				<label for="username">Nom d'utilisateur :</label>
+				<input type="text" id="username" name="username" required>
+			</div>
+			<div class="form-group">
+				<label for="password">Mot de passe :</label>
+				<input type="password" id="password" name="password" required>
+			</div>
+			<button type="submit" class="btn-primary">Se connecter</button>
+			<div id="errorMessage" class="error-message"></div>
+		</form>
+	</div>
 
-    <script src="script.js"></script>
+	<script src="script.js"></script>
 </body>
 </html>

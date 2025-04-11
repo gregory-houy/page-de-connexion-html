@@ -1,73 +1,73 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page d'accueil</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Page d'accueil</title>
+	<style>
+		body {
+			font-family: sans-serif;
+			background-color: #f4f4f4;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+			margin: 0;
+		}
 
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
+		.container {
+			background-color: white;
+			padding: 30px;
+			border-radius: 8px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			text-align: center;
+		}
 
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
+		h1 {
+			color: #333;
+			margin-bottom: 20px;
+		}
 
-        p {
-            color: #666;
-            margin-bottom: 30px;
-        }
+		p {
+			color: #666;
+			margin-bottom: 30px;
+		}
 
-        #logoutBtn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+		#logoutBtn {
+			background-color: #007bff;
+			color: white;
+			border: none;
+			padding: 10px 20px;
+			font-size: 16px;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
 
-        #logoutBtn:hover {
-            background-color: #0056b3;
-        }
-    </style>
+		#logoutBtn:hover {
+			background-color: #0056b3;
+		}
+	</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Bienvenue !</h1>
-        <p>Vous êtes connecté.</p>
-        <button id="logoutBtn">Se déconnecter</button>
-    </div>
+	<div class="container">
+		<h1>Bienvenue !</h1>
+		<p>Vous êtes connecté.</p>
+		<button id="logoutBtn">Se déconnecter</button>
+	</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const username = localStorage.getItem('username');
-            if (!username) {
-                window.location.href = 'index.html';
-            }
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const username = localStorage.getItem('username');
+			if (!username) {
+				window.location.href = 'index.html';
+			}
 
-            document.getElementById('logoutBtn').addEventListener('click', function() {
-                localStorage.removeItem('username');
-                window.location.href = 'index.html';
-            });
-        });
-    </script>
+			document.getElementById('logoutBtn').addEventListener('click', function() {
+				localStorage.removeItem('username');
+				window.location.href = 'index.html';
+			});
+		});
+	</script>
 </body>
 </html>
