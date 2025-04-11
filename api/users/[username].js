@@ -28,8 +28,3 @@ export default async function handler(req, res) {
       console.error('Erreur lors de la modification de users.json:', error);
       return res.status(500).json({ error: 'Erreur interne du serveur.' });
     }
-  } else {
-    res.setHeader('Allow', ['DELETE']);
-    return res.status(405).end(`Méthode ${req.method} non autorisée.`);
-  }
-}
