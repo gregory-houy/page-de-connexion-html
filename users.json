@@ -1,5 +1,6 @@
 [
   { "username": "meline.cochin", "password": "16032007", "prenom": "Meline" },
+  { "username": "antony.taieb", "password": "31122005", "prenom": "Antony" },
   { "username": "ewan.kervellec", "password": "05082008", "prenom": "Ewan" },
   { "username": "aurelien.naurais", "password": "03022008", "prenom": "Aurélien" },
   { "username": "alicia.blanluet", "password": "24062008", "prenom": "Alicia" },
@@ -7,5 +8,6 @@
   { "username": "julien.hebert", "password": "13082008", "prenom": "Julien" },
   { "username": "anays.kervellec", "password": "23022006", "prenom": "Anays" },
   { "username": "gregory.houy", "password": "31082009", "prenom": "Grégory" },
-  { "username": "administrateur", "password": "adminmdl", "prenom": "Administrateur" }
+  { "username": "administrateur", "password": "adminmdl", "prenom": "Administrateur" },
+  { "username": "admin", "password": "", "prenom": "Admin" }
 ]
