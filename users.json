@@ -1,7 +1,10 @@
 [
-  { "username": "gregory.houy", "password": "31082009" },
-  { "username": "leo", "password": "paul" },
-  { "username": "alicia.blanluet", "password": "24062008" },
+  { "username": "meline.cochin", "password": "16032007" },
+  { "username": "ewan.kervellec", "password": "05082008" },
   { "username": "aurelien.naurais", "password": "03022008" },
-  { "username": "admin", "password": "adminmdl" }
+  { "username": "alicia.blanluet", "password": "24062008" },
+  { "username": "amaury.anfraypavy", "password": "31012009"},
+  { "username": "anais.kervellec", "password": "23022006"},
+  { "username": "gregory.houy", "password": "31082009"},
+  { "username": "administrateur", "password": "adminmdl" }
 ]
