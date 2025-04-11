@@ -16,10 +16,13 @@
         #message, #errorMessage { text-align: center; margin-top: 10px; font-weight: bold; }
         #message { color: green; }
         #errorMessage { color: red; }
+        .logout-link { display: block; margin-top: 20px; text-align: center; color: blue; text-decoration: none; cursor: pointer; }
     </style>
 </head>
 <body>
     <h1>Inventaire</h1>
+    <a href="../page_accueil.html" class="logout-link">Retour à l'accueil</a>
+    <a href="../index.html" class="logout-link">Se déconnecter</a>
 
     <form id="addItemForm">
         <h2>Ajouter un élément</h2>
@@ -41,9 +44,9 @@
 
     <script>
         async function checkAuth() {
-            const isLoggedIn = localStorage.getItem('username'); // Adaptez ceci à votre méthode de vérification de connexion
+            const isLoggedIn = localStorage.getItem('username'); // Adaptez ceci à VOTRE méthode de vérification de connexion
             if (!isLoggedIn) {
-                window.location.href = '/index.html'; // Rediriger vers la page de connexion si non connecté
+                window.location.href = '../index.html'; // Rediriger vers la page de connexion
                 return false;
             }
             return true;
@@ -51,11 +54,10 @@
 
         async function loadInventory() {
             if (!await checkAuth()) return;
-            // Le reste de votre fonction loadInventory ici (identique à la version précédente)
             const inventoryList = document.getElementById('inventoryList');
             const errorDiv = document.getElementById('errorMessage');
             try {
-                const response = await fetch('/api/inventory/inventory'); // Notez le chemin de l'API
+                const response = await fetch('/api/inventory/inventory');
                 if (!response.ok) {
                     console.error(`Erreur lors de la récupération de l'inventaire: ${response.status}`);
                     errorDiv.textContent = 'Erreur lors du chargement de l\'inventaire.';
@@ -91,7 +93,7 @@
             const newItem = { name, quantity, price };
 
             try {
-                const response = await fetch('/api/inventory/inventory', { // Notez le chemin de l'API
+                const response = await fetch('/api/inventory/inventory', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -118,7 +120,7 @@
         async function deleteItem(itemId) {
             if (!await checkAuth()) return;
             try {
-                const response = await fetch(`/api/inventory/inventory/${itemId}`, { // Notez le chemin de l'API
+                const response = await fetch(`/api/inventory/inventory/${itemId}`, {
                     method: 'DELETE',
                 });
 

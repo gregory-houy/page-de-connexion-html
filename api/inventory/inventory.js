@@ -3,14 +3,30 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
-export default async function handler(req, res) {
-    const inventoryFilePath = path.join(process.cwd(), 'inventory.json');
+// Fonction d'authentification (ADAPTEZ CECI À VOTRE SYSTÈME D'AUTHENTIFICATION)
+async function isAuthenticated(req) {
+    // Exemple basé sur la vérification d'un cookie 'username'
+    const username = req.cookies?.username;
+    if (username) {
+        const usersFilePath = path.join(process.cwd(), 'users.json');
+        try {
+            const data = await fs.readFile(usersFilePath, 'utf8');
+            const users = JSON.parse(data);
+            return users.some(user => user.username === username);
+        } catch (error) {
+            console.error('Erreur lors de la lecture de users.json pour l\'authentification:', error);
+            return false;
+        }
+    }
+    return false;
+}
 
-    // Vérification de l'authentification (exemple basique - adaptez à votre système)
-    const isLoggedIn = req.cookies?.username || req.headers['authorization']; // Exemple: cookie 'username' ou header 'authorization'
-    if (!isLoggedIn) {
+export default async function handler(req, res) {
+    if (!await isAuthenticated(req)) {
         return res.status(401).json({ error: 'Non autorisé. Veuillez vous connecter.' });
     }
+
+    const inventoryFilePath = path.join(process.cwd(), 'inventory.json');
 
     if (req.method === 'GET') {
         try {
