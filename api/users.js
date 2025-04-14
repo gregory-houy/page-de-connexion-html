@@ -40,24 +40,25 @@ export default async function handler(req, res) {
             }
         }
     } else if (req.method === 'POST') {
-        // Votre code existant pour la méthode POST (ajout d'utilisateur) reste inchangé pour l'instant
         console.log('Méthode POST détectée dans /api/users');
-        const { username, password, prenom } = req.body; // Assurez-vous que votre formulaire d'ajout envoie aussi le prénom
+        const { username, password, prenom } = req.body; // Récupérer le prénom depuis le corps de la requête
+        console.log('req.body (POST):', req.body);
 
-        if (!username || !password || !prenom) {
+        if (!username || !password || !prenom) { // Vérifiez que le prénom est également présent
             return res.status(400).json({ error: 'Nom d\'utilisateur, mot de passe et prénom requis.' });
         }
 
         try {
             console.log('Tentative de lecture de users.json (POST)');
             const data = await fs.readFile(usersFilePath, 'utf8');
+            console.log('Contenu de users.json (POST):', data);
             const users = JSON.parse(data);
 
             if (users.some(user => user.username === username)) {
                 return res.status(409).json({ error: `L'utilisateur "${username}" existe déjà.` });
             }
 
-            users.push({ username, password, prenom });
+            users.push({ username, password, prenom }); // Inclure le prénom dans le nouvel utilisateur
             console.log('Nouveau tableau users (POST):', users);
             console.log('Tentative d\'écriture dans users.json (POST)');
             await fs.writeFile(usersFilePath, JSON.stringify(users, null, 2), 'utf8');
@@ -67,8 +68,26 @@ export default async function handler(req, res) {
             console.error('Détails de l\'erreur (POST):', error);
             return res.status(500).json({ error: 'Erreur interne du serveur.' });
         }
+    } else if (req.method === 'DELETE') {
+        const { username } = req.query;
+        console.log('Méthode DELETE détectée dans /api/users pour l\'utilisateur:', username);
+
+        if (!username) {
+            return res.status(400).json({ error: 'Nom d\'utilisateur à supprimer requis.' });
+        }
+
+        try {
+            const data = await fs.readFile(usersFilePath, 'utf8');
+            const users = JSON.parse(data);
+            const updatedUsers = users.filter(user => user.username !== username);
+            await fs.writeFile(usersFilePath, JSON.stringify(updatedUsers, null, 2), 'utf8');
+            return res.status(200).json({ message: `L'utilisateur "${username}" a été supprimé.` });
+        } catch (error) {
+            console.error('Erreur lors de la suppression de l\'utilisateur dans users.json:', error);
+            return res.status(500).json({ error: 'Erreur interne du serveur.' });
+        }
     } else {
-        res.setHeader('Allow', ['GET', 'POST']);
+        res.setHeader('Allow', ['GET', 'POST', 'DELETE']);
         return res.status(405).end(`Méthode ${req.method} non autorisée.`);
     }
 }

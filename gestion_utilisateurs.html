@@ -1,127 +1,142 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestion des Utilisateurs</title>
-  <style>
-    body { font-family: sans-serif; }
-    #addUserForm label { display: block; margin-bottom: 5px; }
-    #userListContainer { margin-top: 20px; border: 1px solid #ccc; padding: 10px; }
-    #userListContainer h2 { margin-top: 0; }
-    #userList { list-style-type: none; padding: 0; }
-    #userList li { padding: 8px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-    #userList li:last-child { border-bottom: none; }
-    #userList li button { background-color: #dc3545; color: white; padding: 5px 10px; font-size: 14px; cursor: pointer; }
-    #message, #errorMessage { text-align: center; margin-top: 10px; font-weight: bold; }
-    #message { color: green; }
-    #errorMessage { color: red; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Utilisateurs</title>
+    <style>
+        body { font-family: sans-serif; }
+        .container { max-width: 600px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+        h1 { text-align: center; }
+        h2 { margin-top: 20px; }
+        label { display: block; margin-bottom: 5px; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        #message, #error { margin-top: 10px; font-weight: bold; text-align: center; }
+        #message { color: green; }
+        #error { color: red; }
+        ul { list-style-type: none; padding: 0; margin-top: 20px; border: 1px solid #ccc; border-radius: 4px; padding: 10px; }
+        li { padding: 8px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        li:last-child { border-bottom: none; }
+        li button { background-color: #dc3545; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        li button:hover { background-color: #c82333; }
+        a { display: block; margin-top: 20px; text-align: center; color: blue; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
 </head>
 <body>
-  <h1>Gestion des Utilisateurs</h1>
+    <div class="container">
+        <h1>Gestion des Utilisateurs</h1>
+        <p><a href="page_accueil.html">Retour à l'accueil</a></p>
 
-  <form id="addUserForm">
-    <h2>Ajouter un utilisateur</h2>
-    <label for="username">Nom d'utilisateur:</label>
-    <input type="text" id="username" name="username" required><br><br>
-    <label for="password">Mot de passe:</label>
-    <input type="password" id="password" name="password" required><br><br>
-    <button type="submit">Ajouter</button>
-    <div id="message"></div>
-    <div id="errorMessage"></div>
-  </form>
+        <h2>Ajouter un utilisateur</h2>
+        <form id="addUserForm">
+            <label for="newUsername">Nom d'utilisateur:</label>
+            <input type="text" id="newUsername" name="newUsername" required><br>
 
-  <div id="userListContainer">
-    <h2>Liste des utilisateurs</h2>
-    <ul id="userList"></ul>
-  </div>
+            <label for="newPassword">Mot de passe:</label>
+            <input type="password" id="newPassword" name="newPassword" required><br>
 
-  <script>
-    const addUserForm = document.getElementById('addUserForm');
-    const usersList = document.getElementById('userList');
-    const messageDiv = document.getElementById('message');
-    const errorDiv = document.getElementById('errorMessage');
+            <label for="newPrenom">Prénom:</label>
+            <input type="text" id="newPrenom" name="newPrenom" required><br>
 
-    async function loadUsers() {
-      try {
-        const response = await fetch('/api/users');
-        if (!response.ok) {
-          console.error(`Erreur lors de la récupération des utilisateurs: ${response.status}`);
-          errorDiv.textContent = 'Erreur lors du chargement des utilisateurs.';
-          return;
+            <button type="submit">Ajouter un utilisateur</button>
+            <div id="message"></div>
+            <div id="error"></div>
+        </form>
+
+        <h2>Liste des utilisateurs</h2>
+        <ul id="userList">
+            </ul>
+    </div>
+
+    <script>
+        async function loadUsers() {
+            const userListElement = document.getElementById('userList');
+            userListElement.innerHTML = '';
+            try {
+                const response = await fetch('/api/users');
+                if (response.ok) {
+                    const users = await response.json();
+                    users.forEach(user => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `${user.username} (${user.prenom})`;
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Supprimer';
+                        deleteButton.onclick = () => deleteUser(user.username);
+                        listItem.appendChild(deleteButton);
+                        userListElement.appendChild(listItem);
+                    });
+                } else {
+                    console.error("Erreur lors du chargement des utilisateurs");
+                }
+            } catch (error) {
+                console.error("Erreur de réseau:", error);
+            }
         }
-        const users = await response.json();
-        usersList.innerHTML = '';
-        users.forEach(user => {
-          const li = document.createElement('li');
-          li.textContent = `Nom d'utilisateur: ${user.username} `;
-          const deleteButton = document.createElement('button');
-          deleteButton.textContent = 'Supprimer';
-          deleteButton.onclick = () => deleteUser(user.username);
-          li.appendChild(deleteButton);
-          usersList.appendChild(li);
+
+        const addUserForm = document.getElementById('addUserForm');
+        const messageDiv = document.getElementById('message');
+        const errorDiv = document.getElementById('error');
+
+        addUserForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const newUsername = document.getElementById('newUsername').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const newPrenom = document.getElementById('newPrenom').value; // Récupérer le prénom
+
+            const newUser = { username: newUsername, password: newPassword, prenom: newPrenom }; // Inclure le prénom
+
+            try {
+                const response = await fetch('/api/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(newUser),
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    messageDiv.textContent = data.message;
+                    errorDiv.textContent = '';
+                    addUserForm.reset();
+                    loadUsers();
+                } else {
+                    errorDiv.textContent = data.error || 'Erreur lors de l\'ajout de l\'utilisateur.';
+                    messageDiv.textContent = '';
+                }
+            } catch (error) {
+                console.error("Erreur lors de l'envoi de la requête:", error);
+                errorDiv.textContent = 'Erreur de réseau lors de l\'ajout de l\'utilisateur.';
+                messageDiv.textContent = '';
+            }
         });
-      } catch (error) {
-        console.error("Erreur lors du chargement des utilisateurs:", error);
-        errorDiv.textContent = 'Erreur lors du chargement des utilisateurs.';
-      }
-    }
 
-    addUserForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-
-      const newUser = { username, password };
-
-      try {
-        const response = await fetch('/api/users', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newUser),
-        });
-
-        const result = await response.json();
-        if (response.ok) {
-          messageDiv.textContent = result.message;
-          errorDiv.textContent = '';
-          addUserForm.reset();
-          loadUsers();
-        } else {
-          errorDiv.textContent = result.error || 'Erreur lors de l\'ajout de l\'utilisateur.';
-          messageDiv.textContent = '';
+        async function deleteUser(username) {
+            if (confirm(`Êtes-vous sûr de vouloir supprimer l'utilisateur "${username}" ?`)) {
+                try {
+                    const response = await fetch(`/api/users?username=${username}`, { // Utiliser le paramètre username pour identifier l'utilisateur à supprimer
+                        method: 'DELETE',
+                    });
+                    const data = await response.json();
+                    if (response.ok) {
+                        messageDiv.textContent = data.message || `L'utilisateur "${username}" a été supprimé.`;
+                        errorDiv.textContent = '';
+                        loadUsers();
+                    } else {
+                        errorDiv.textContent = data.error || `Erreur lors de la suppression de l'utilisateur "${username}".`;
+                        messageDiv.textContent = '';
+                    }
+                } catch (error) {
+                    console.error("Erreur lors de la suppression de l'utilisateur:", error);
+                    errorDiv.textContent = 'Erreur de réseau lors de la suppression de l\'utilisateur.';
+                    messageDiv.textContent = '';
+                }
+            }
         }
-      } catch (error) {
-        console.error("Erreur lors de l'ajout de l'utilisateur:", error);
-        errorDiv.textContent = 'Erreur lors de l\'ajout de l\'utilisateur.';
-      }
-    });
 
-    async function deleteUser(usernameToDelete) {
-      try {
-        const response = await fetch(`/api/users/${usernameToDelete}`, {
-          method: 'DELETE',
-        });
-
-        const result = await response.json();
-        if (response.ok) {
-          messageDiv.textContent = result.message;
-          errorDiv.textContent = '';
-          loadUsers();
-        } else {
-          errorDiv.textContent = result.error || `Erreur lors de la suppression de l'utilisateur "${usernameToDelete}".`;
-          messageDiv.textContent = '';
-        }
-      } catch (error) {
-        console.error(`Erreur lors de la suppression de l'utilisateur "${usernameToDelete}:`, error);
-        errorDiv.textContent = `Erreur lors de la suppression de l'utilisateur "${usernameToDelete}".`;
-      }
-    }
-
-    loadUsers();
-  </script>
+        loadUsers();
+    </script>
 </body>
 </html>
