@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messagerie Instantanée</title>
+    <title>Messagerie Privée</title>
     <style>
         body { font-family: sans-serif; margin: 0; display: flex; flex-direction: column; height: 100vh; }
         #message-container { flex-grow: 1; padding: 10px; overflow-y: auto; border-bottom: 1px solid #ccc; }
         .message { padding: 8px; border-radius: 5px; margin-bottom: 5px; background-color: #f0f0f0; }
         .sent { background-color: #e0f7fa; align-self: flex-end; }
-        #input-area { display: flex; padding: 10px; }
+        .received { background-color: #e8eaf6; align-self: flex-start; }
+        .sender-info { font-size: 0.8em; color: #777; margin-bottom: 2px; }
+        #input-area { display: flex; padding: 10px; align-items: center; }
+        #recipient-select { padding: 8px; border: 1px solid #ccc; border-radius: 5px; margin-right: 10px; }
         #message-input { flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 5px; margin-right: 10px; }
         #send-button { padding: 8px 15px; border: none; border-radius: 5px; background-color: #007bff; color: white; cursor: pointer; }
         #send-button:hover { background-color: #0056b3; }
@@ -19,6 +22,10 @@
 </head>
 <body>
     <a id="logout-link" href="../index.html">Se déconnecter</a>
+    <label for="recipient-select">Envoyer à:</label>
+    <select id="recipient-select">
+        <option value="">Sélectionner un utilisateur</option>
+    </select>
     <div id="message-container">
         </div>
     <div id="input-area">
@@ -36,37 +43,81 @@
             return true;
         }
 
-        async function loadMessages() {
+        let currentRecipient = null;
+
+        async function loadUsersForDropdown() {
             if (!await checkAuth()) return;
-            const messageContainer = document.getElementById('message-container');
-            messageContainer.innerHTML = '';
+            const recipientSelect = document.getElementById('recipient-select');
             try {
-                const response = await fetch('/api/messages');
+                const response = await fetch('/api/users');
                 if (response.ok) {
-                    const messages = await response.json();
-                    messages.forEach(msg => {
-                        const div = document.createElement('div');
-                        div.classList.add('message');
-                        div.textContent = `${msg.sender}: ${msg.text}`;
-                        if (msg.sender === localStorage.getItem('username')) {
-                            div.classList.add('sent');
+                    const users = await response.json();
+                    const currentUser = localStorage.getItem('username');
+                    recipientSelect.innerHTML = '<option value="">Sélectionner un utilisateur</option>';
+                    users.forEach(user => {
+                        if (user.username !== currentUser) {
+                            const option = document.createElement('option');
+                            option.value = user.username;
+                            option.textContent = user.prenom ? `${user.prenom} (${user.username})` : user.username;
+                            recipientSelect.appendChild(option);
                         }
-                        messageContainer.appendChild(div);
                     });
                 } else {
-                    console.error("Erreur lors du chargement des messages");
+                    console.error("Erreur lors du chargement des utilisateurs pour la messagerie");
                 }
             } catch (error) {
                 console.error("Erreur de réseau:", error);
             }
         }
 
+        async function loadMessages() {
+            if (!await checkAuth()) return;
+            const messageContainer = document.getElementById('message-container');
+            messageContainer.innerHTML = '';
+            const sender = localStorage.getItem('username');
+            if (currentRecipient) {
+                try {
+                    const response = await fetch(`/api/messages?sender=${sender}&recipient=${currentRecipient}`);
+                    if (response.ok) {
+                        const messages = await response.json();
+                        messages.forEach(msg => {
+                            const div = document.createElement('div');
+                            div.classList.add('message');
+                            const senderInfo = document.createElement('div');
+                            senderInfo.classList.add('sender-info');
+                            senderInfo.textContent = msg.sender;
+                            div.appendChild(senderInfo);
+                            div.textContent += msg.text;
+                            if (msg.sender === sender) {
+                                div.classList.add('sent');
+                            } else {
+                                div.classList.add('received');
+                            }
+                            messageContainer.appendChild(div);
+                        });
+                    } else {
+                        console.error("Erreur lors du chargement des messages");
+                    }
+                } catch (error) {
+                    console.error("Erreur de réseau:", error);
+                }
+            } else {
+                messageContainer.textContent = 'Sélectionnez un destinataire pour afficher les messages.';
+            }
+        }
+
+        const recipientSelect = document.getElementById('recipient-select');
+        recipientSelect.addEventListener('change', () => {
+            currentRecipient = recipientSelect.value;
+            loadMessages();
+        });
+
         const sendButton = document.getElementById('send-button');
         const messageInput = document.getElementById('message-input');
 
         sendButton.addEventListener('click', async () => {
             const text = messageInput.value.trim();
-            if (text) {
+            if (text && currentRecipient) {
                 if (!await checkAuth()) return;
                 const sender = localStorage.getItem('username');
                 try {
@@ -75,27 +126,27 @@
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ sender, text }),
+                        body: JSON.stringify({ sender, recipient: currentRecipient, text }),
                     });
                     if (response.ok) {
                         messageInput.value = '';
-                        loadMessages(); // Recharger les messages après l'envoi
+                        loadMessages();
                     } else {
                         console.error("Erreur lors de l'envoi du message");
                     }
                 } catch (error) {
                     console.error("Erreur de réseau:", error);
                 }
+            } else if (!currentRecipient) {
+                alert('Veuillez sélectionner un destinataire.');
             }
         });
 
         document.addEventListener('DOMContentLoaded', () => {
             checkAuth();
-            loadMessages();
-            // Ici, dans une application réelle, vous utiliseriez WebSocket
-            // pour une mise à jour en temps réel des messages.
-            // Pour cet exemple simple, nous allons recharger les messages périodiquement.
-            setInterval(loadMessages, 3000); // Reloader les messages toutes les 3 secondes
+            loadUsersForDropdown();
+            // Remplacer par WebSocket pour une application réelle
+            setInterval(loadMessages, 3000);
         });
     </script>
 </body>
