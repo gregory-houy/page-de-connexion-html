@@ -9,14 +9,17 @@
         .container { max-width: 600px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
         h1 { text-align: center; }
         p { text-align: center; }
-        /* a { display: block; margin-top: 20px; text-align: center; } */
         button { display: block; width: 200px; margin: 20px auto; padding: 10px; font-size: 16px; cursor: pointer; }
+        .new-tab-link { display: block; margin-top: 20px; text-align: center; color: blue; text-decoration: none; }
+        .new-tab-link:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 id="welcomeMessage">Bienvenue !</h1>
         <p><a href="gestion_utilisateurs.html">Gestion des Utilisateurs</a></p>
+        <p><a href="./inventory/inventory.html">Inventaire</a></p>
+        <a href="./messaging/messaging.html" class="new-tab-link" target="_blank">Messagerie Instantanée</a>
         <button id="logoutButton">Se déconnecter</button>
     </div>
 
@@ -53,10 +56,7 @@
         logoutButton.addEventListener('click', logout);
 
         function logout() {
-            // Supprimer l'indicateur de connexion côté client
             localStorage.removeItem('username');
-
-            // Rediriger vers la page de connexion
             window.location.href = 'index.html';
         }
     </script>

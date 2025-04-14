@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messagerie Instantanée</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; display: flex; flex-direction: column; height: 100vh; }
+        #message-container { flex-grow: 1; padding: 10px; overflow-y: auto; border-bottom: 1px solid #ccc; }
+        .message { padding: 8px; border-radius: 5px; margin-bottom: 5px; background-color: #f0f0f0; }
+        .sent { background-color: #e0f7fa; align-self: flex-end; }
+        #input-area { display: flex; padding: 10px; }
+        #message-input { flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 5px; margin-right: 10px; }
+        #send-button { padding: 8px 15px; border: none; border-radius: 5px; background-color: #007bff; color: white; cursor: pointer; }
+        #send-button:hover { background-color: #0056b3; }
+        #logout-link { display: block; text-align: center; margin-top: 10px; color: blue; text-decoration: none; }
+        #logout-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <a id="logout-link" href="../index.html">Se déconnecter</a>
+    <div id="message-container">
+        </div>
+    <div id="input-area">
+        <input type="text" id="message-input" placeholder="Votre message">
+        <button id="send-button">Envoyer</button>
+    </div>
+
+    <script>
+        async function checkAuth() {
+            const isLoggedIn = localStorage.getItem('username');
+            if (!isLoggedIn) {
+                window.location.href = '../index.html';
+                return false;
+            }
+            return true;
+        }
+
+        async function loadMessages() {
+            if (!await checkAuth()) return;
+            const messageContainer = document.getElementById('message-container');
+            messageContainer.innerHTML = '';
+            try {
+                const response = await fetch('/api/messages');
+                if (response.ok) {
+                    const messages = await response.json();
+                    messages.forEach(msg => {
+                        const div = document.createElement('div');
+                        div.classList.add('message');
+                        div.textContent = `${msg.sender}: ${msg.text}`;
+                        if (msg.sender === localStorage.getItem('username')) {
+                            div.classList.add('sent');
+                        }
+                        messageContainer.appendChild(div);
+                    });
+                } else {
+                    console.error("Erreur lors du chargement des messages");
+                }
+            } catch (error) {
+                console.error("Erreur de réseau:", error);
+            }
+        }
+
+        const sendButton = document.getElementById('send-button');
+        const messageInput = document.getElementById('message-input');
+
+        sendButton.addEventListener('click', async () => {
+            const text = messageInput.value.trim();
+            if (text) {
+                if (!await checkAuth()) return;
+                const sender = localStorage.getItem('username');
+                try {
+                    const response = await fetch('/api/messages', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ sender, text }),
+                    });
+                    if (response.ok) {
+                        messageInput.value = '';
+                        loadMessages(); // Recharger les messages après l'envoi
+                    } else {
+                        console.error("Erreur lors de l'envoi du message");
+                    }
+                } catch (error) {
+                    console.error("Erreur de réseau:", error);
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            loadMessages();
+            // Ici, dans une application réelle, vous utiliseriez WebSocket
+            // pour une mise à jour en temps réel des messages.
+            // Pour cet exemple simple, nous allons recharger les messages périodiquement.
+            setInterval(loadMessages, 3000); // Reloader les messages toutes les 3 secondes
+        });
+    </script>
+</body>
+</html>
