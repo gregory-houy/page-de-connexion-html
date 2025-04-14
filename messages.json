@@ -1,17 +1,16 @@
 [
-  {
-    "id": "...",
-    "sender": "user1",
-    "recipient": "user2",
-    "text": "Salut !",
-    "timestamp": "..."
-  },
-  {
-    "id": "...",
-    "sender": "user2",
-    "recipient": "user1",
-    "text": "Salut à toi !",
-    "timestamp": "..."
-  }
-  // ... plus de messages
+    {
+        "id": "...",
+        "sender": "user1",
+        "recipient": "user2",
+        "text": "Salut !",
+        "timestamp": "..."
+    },
+    {
+        "id": "...",
+        "sender": "user2",
+        "recipient": "user1",
+        "text": "Salut à toi !",
+        "timestamp": "..."
+    }
 ]
