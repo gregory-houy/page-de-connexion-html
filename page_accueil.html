@@ -9,28 +9,30 @@
         .container { max-width: 600px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
         h1 { text-align: center; }
         p { text-align: center; }
-        a { display: block; margin-top: 20px; text-align: center; }
+        /* a { display: block; margin-top: 20px; text-align: center; } */
+        button { display: block; width: 200px; margin: 20px auto; padding: 10px; font-size: 16px; cursor: pointer; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 id="welcomeMessage">Bienvenue !</h1>
-        <p><a href="index.html">Se déconnecter</a></p>
+        <p><a href="gestion_utilisateurs.html">Gestion des Utilisateurs</a></p>
+        <button id="logoutButton">Se déconnecter</button>
     </div>
 
     <script>
         async function displayWelcomeMessage() {
-            const username = localStorage.getItem('username'); // Supposons que vous stockez le nom d'utilisateur dans le localStorage après la connexion
+            const username = localStorage.getItem('username');
 
             if (username) {
                 try {
-                    const response = await fetch(`/api/users?username=${username}`); // Créer une API pour récupérer les détails d'un utilisateur par son nom
+                    const response = await fetch(`/api/users?username=${username}`);
                     if (response.ok) {
                         const user = await response.json();
                         if (user && user.prenom) {
                             document.getElementById('welcomeMessage').textContent = `Bienvenue, ${user.prenom} !`;
                         } else {
-                            document.getElementById('welcomeMessage').textContent = `Bienvenue, ${username} !`; // Afficher le nom d'utilisateur par défaut si le prénom n'est pas trouvé
+                            document.getElementById('welcomeMessage').textContent = `Bienvenue, ${username} !`;
                         }
                     } else {
                         console.error("Erreur lors de la récupération des détails de l'utilisateur");
@@ -41,12 +43,22 @@
                     document.getElementById('welcomeMessage').textContent = `Bienvenue !`;
                 }
             } else {
-                // Gérer le cas où l'utilisateur n'est pas connecté (rediriger vers la page de connexion ?)
-                document.getElementById('welcomeMessage').textContent = `Bienvenue !`;
+                window.location.href = 'index.html'; // Rediriger si non connecté
             }
         }
 
-        displayWelcomeMessage();
+        document.addEventListener('DOMContentLoaded', displayWelcomeMessage);
+
+        const logoutButton = document.getElementById('logoutButton');
+        logoutButton.addEventListener('click', logout);
+
+        function logout() {
+            // Supprimer l'indicateur de connexion côté client
+            localStorage.removeItem('username');
+
+            // Rediriger vers la page de connexion
+            window.location.href = 'index.html';
+        }
     </script>
 </body>
 </html>
