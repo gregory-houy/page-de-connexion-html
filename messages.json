@@ -12,6 +12,5 @@
     "recipient": "user1",
     "text": "Salut à toi !",
     "timestamp": "..."
-  }
-  // ... autres messages
+  },
 ]
