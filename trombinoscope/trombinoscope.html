@@ -12,17 +12,17 @@
 
         .trombinoscope {
             display: grid;
-            gap: 15px;
-            padding: 15px;
+            gap: 10px; /* Réduction de l'espace entre les éléments */
+            padding: 10px; /* Réduction du remplissage */
             justify-content: center;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Adaptation pour les petits écrans */
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Adaptation plus agressive */
         }
 
         .ligne-1, .ligne-2, .ligne-3, .ligne-4 {
             display: flex;
-            gap: 15px;
+            gap: 10px; /* Réduction de l'espace entre les éléments */
             justify-content: center;
-            flex-wrap: wrap; /* Passer à la ligne sur les petits écrans */
+            flex-wrap: wrap;
         }
 
         .personne {
@@ -31,43 +31,85 @@
             align-items: center;
             text-align: center;
             border: solid 1px #ccc;
-            width: 140px; /* Réduction de la largeur */
-            height: auto; /* Laisser la hauteur s'adapter au contenu */
-            border-radius: 15px; /* Coins un peu moins arrondis pour les petits écrans */
-            padding: 10px;
+            width: 120px; /* Encore plus petit */
+            height: auto;
+            border-radius: 10px; /* Encore moins arrondi */
+            padding: 8px; /* Encore moins de remplissage */
         }
 
         .personne img {
-            width: 80px; /* Réduction de la taille de l'image */
-            height: 80px;
+            width: 60px; /* Image encore plus petite */
+            height: 60px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 5px;
+            margin-bottom: 3px; /* Moins de marge sous l'image */
             border: 1px solid #ccc;
         }
 
         .personne h3 {
-            margin-top: 5px; /* Un peu d'espace au-dessus du nom */
-            margin-bottom: 2px;
-            font-size: 0.9em; /* Taille de police plus petite */
+            margin-top: 3px;
+            margin-bottom: 1px;
+            font-size: 0.8em; /* Police encore plus petite */
         }
 
         .personne p {
             margin-bottom: 0;
-            font-size: 0.8em; /* Taille de police encore plus petite */
+            font-size: 0.7em; /* Police encore plus petite */
             color: #555;
         }
 
         .logout-link {
             display: block;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 15px; /* Moins de marge */
             color: blue;
             text-decoration: none;
         }
 
         .logout-link:hover {
             text-decoration: underline;
+        }
+
+        /* Media Query pour les écrans de 600px de large ou moins (typiquement les téléphones) */
+        @media (max-width: 600px) {
+            .trombinoscope {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adaptation maximale */
+                gap: 8px;
+                padding: 8px;
+            }
+
+            .ligne-1, .ligne-2, .ligne-3, .ligne-4 {
+                gap: 8px;
+            }
+
+            .personne {
+                width: 100px;
+                padding: 6px;
+                border-radius: 8px;
+            }
+
+            .personne img {
+                width: 50px;
+                height: 50px;
+                margin-bottom: 2px;
+            }
+
+            .personne h3 {
+                font-size: 0.7em;
+            }
+
+            .personne p {
+                font-size: 0.6em;
+            }
+
+            h1 {
+                font-size: 1.2em; /* Titre plus petit sur mobile */
+                margin-bottom: 10px;
+            }
+
+            header nav ul {
+                font-size: 0.9em; /* Navigation plus petite sur mobile (si elle était affichée) */
+            }
         }
     </style>
 </head>
