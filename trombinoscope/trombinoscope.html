@@ -15,9 +15,10 @@
             gap: 20px;
             padding: 20px;
             justify-content: center;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Style par défaut pour les écrans plus larges */
         }
 
-        .ligne-1, .ligne-2, .ligne-3, .ligne-4 {
+        .ligne-1, .ligne-2, .ligne-3, .ligne-4, .ligne-5, .ligne-6 {
             display: flex;
             gap: 20px;
             justify-content: center;
@@ -68,42 +69,6 @@
             text-decoration: underline;
         }
 
-        /* Style pour les écrans de 601px de large et plus (ordinateurs) */
-        @media (min-width: 601px) {
-            .trombinoscope {
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Comme au début */
-                gap: 20px;
-                padding: 20px;
-            }
-
-            .ligne-1, .ligne-2, .ligne-3, .ligne-4 {
-                display: flex;
-                gap: 20px;
-                justify-content: center;
-            }
-
-            .personne {
-                width: 180px;
-                height: 200px;
-                border-radius: 20px;
-                padding: 10px;
-            }
-
-            .personne img {
-                width: 100px;
-                height: 100px;
-                margin-bottom: 5px;
-            }
-
-            .personne h3 {
-                font-size: 1em;
-            }
-
-            .personne p {
-                font-size: 0.9em;
-            }
-        }
-
         /* Style pour les écrans de 600px de large ou moins (téléphones) */
         @media (max-width: 600px) {
             .trombinoscope {
@@ -112,11 +77,11 @@
                 padding: 10px;
             }
 
-            .ligne-1, .ligne-2, .ligne-3, .ligne-4 {
+            .ligne-1, .ligne-2, .ligne-3, .ligne-4, .ligne-5, .ligne-6 {
                 display: flex;
                 gap: 10px;
                 justify-content: space-around; /* Espacer les deux personnes sur la ligne */
-                flex-wrap: nowrap; /* Empêcher le passage à la ligne si possible */
+                flex-wrap: wrap; /* Permettre le passage à la ligne si nécessaire pour les écrans très étroits */
             }
 
             .personne {
@@ -125,11 +90,11 @@
                 align-items: center;
                 text-align: center;
                 border: solid 1px #ccc;
-                width: calc(50% - 5px); /* Occuper environ la moitié de la largeur avec un peu de marge */
+                width: calc(50% - 5px); /* Occuper environ la moitié de la largeur */
                 height: auto;
                 border-radius: 10px;
                 padding: 8px;
-                box-sizing: border-box; /* Inclure le padding et la bordure dans la largeur */
+                box-sizing: border-box;
             }
 
             .personne img {
@@ -238,7 +203,7 @@
             </div>
         </div>
 
-        <div class="ligne-5" style="display: flex; gap: 20px; justify-content: center;">
+        <div class="ligne-5">
             <div class="personne">
                 <img src="images/corentin.jpg" alt="Corentin">
                 <h3>WEBER Corentin</h3>
@@ -253,7 +218,7 @@
             </div>
         </div>
 
-        <div class="ligne-6" style="display: flex; gap: 20px; justify-content: center;">
+        <div class="ligne-6">
             <div class="personne">
                 <img src="images/anays.jpg" alt="Anays">
                 <h3>KERVELLEC Anays</h3>
