@@ -12,16 +12,17 @@
 
         .trombinoscope {
             display: grid;
-            gap: 20px;
-            padding: 20px;
+            gap: 15px;
+            padding: 15px;
             justify-content: center;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Style par défaut pour les écrans plus larges */
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Adaptation pour les petits écrans */
         }
 
-        .ligne-1, .ligne-2, .ligne-3, .ligne-4, .ligne-5, .ligne-6 {
+        .ligne-1, .ligne-2, .ligne-3, .ligne-4 {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             justify-content: center;
+            flex-wrap: wrap; /* Passer à la ligne sur les petits écrans */
         }
 
         .personne {
@@ -30,15 +31,15 @@
             align-items: center;
             text-align: center;
             border: solid 1px #ccc;
-            width: 180px;
-            height: 200px;
-            border-radius: 20px;
+            width: 140px; /* Réduction de la largeur */
+            height: auto; /* Laisser la hauteur s'adapter au contenu */
+            border-radius: 15px; /* Coins un peu moins arrondis pour les petits écrans */
             padding: 10px;
         }
 
         .personne img {
-            width: 100px;
-            height: 100px;
+            width: 80px; /* Réduction de la taille de l'image */
+            height: 80px;
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 5px;
@@ -46,14 +47,14 @@
         }
 
         .personne h3 {
-            margin-top: 0;
+            margin-top: 5px; /* Un peu d'espace au-dessus du nom */
             margin-bottom: 2px;
-            font-size: 1em;
+            font-size: 0.9em; /* Taille de police plus petite */
         }
 
         .personne p {
             margin-bottom: 0;
-            font-size: 0.9em;
+            font-size: 0.8em; /* Taille de police encore plus petite */
             color: #555;
         }
 
@@ -67,65 +68,6 @@
 
         .logout-link:hover {
             text-decoration: underline;
-        }
-
-        /* Style pour les écrans de 600px de large ou moins (téléphones) */
-        @media (max-width: 600px) {
-            .trombinoscope {
-                grid-template-columns: repeat(1, 1fr); /* Une seule colonne pour le conteneur principal */
-                gap: 10px;
-                padding: 10px;
-            }
-
-            .ligne-1, .ligne-2, .ligne-3, .ligne-4, .ligne-5, .ligne-6 {
-                display: flex;
-                gap: 10px;
-                justify-content: space-around; /* Espacer les deux personnes sur la ligne */
-                flex-wrap: wrap; /* Permettre le passage à la ligne si nécessaire pour les écrans très étroits */
-            }
-
-            .personne {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                border: solid 1px #ccc;
-                width: calc(50% - 5px); /* Occuper environ la moitié de la largeur */
-                height: auto;
-                border-radius: 10px;
-                padding: 8px;
-                box-sizing: border-box;
-            }
-
-            .personne img {
-                width: 80px;
-                height: 80px;
-                border-radius: 50%;
-                object-fit: cover;
-                margin-bottom: 3px;
-                border: 1px solid #ccc;
-            }
-
-            .personne h3 {
-                margin-top: 3px;
-                margin-bottom: 1px;
-                font-size: 0.9em;
-            }
-
-            .personne p {
-                margin-bottom: 0;
-                font-size: 0.8em;
-                color: #555;
-            }
-
-            h1 {
-                font-size: 1.5em;
-                margin-bottom: 15px;
-            }
-
-            header nav ul {
-                font-size: 1em;
-            }
         }
     </style>
 </head>
@@ -156,24 +98,21 @@
                 <p>Classe : T ERA</p>
                 <p>Fonction : Secrétaire</p>
             </div>
-        </div>
-
-        <div class="ligne-2">
             <div class="personne">
                 <img src="images/antony.jpg" alt="Antony">
                 <h3>TAIEB Antony</h3>
                 <p>Classe : T MEE</p>
                 <p>Fonction : Trésorier</p>
             </div>
+        </div>
+
+        <div class="ligne-2">
             <div class="personne">
                 <img src="images/ewan.jpg" alt="Ewan">
                 <h3>KERVELLEC Ewan</h3>
                 <p>Classe : 1 TMA</p>
                 <p>Fonction : Vice-Président</p>
             </div>
-        </div>
-
-        <div class="ligne-3">
             <div class="personne">
                 <img src="images/maxime.jpg" alt="Maxime">
                 <h3>THIERRY Maxime</h3>
@@ -188,7 +127,7 @@
             </div>
         </div>
 
-        <div class="ligne-4">
+        <div class="ligne-3">
             <div class="personne">
                 <img src="images/alicia.jpg" alt="Alicia">
                 <h3>BLANLUET Alicia</h3>
@@ -201,9 +140,6 @@
                 <p>Classe : 1 EBMA</p>
                 <p>Fonction : Vendeur</p>
             </div>
-        </div>
-
-        <div class="ligne-5">
             <div class="personne">
                 <img src="images/corentin.jpg" alt="Corentin">
                 <h3>WEBER Corentin</h3>
@@ -216,15 +152,15 @@
                 <p>Classe : 1 TMA</p>
                 <p>Fonction : Vendeur</p>
             </div>
-        </div>
-
-        <div class="ligne-6">
             <div class="personne">
                 <img src="images/anays.jpg" alt="Anays">
                 <h3>KERVELLEC Anays</h3>
                 <p>Classe : T ERA</p>
                 <p>Fonction : Vendeuse</p>
             </div>
+        </div>
+
+        <div class="ligne-4">
             <div class="personne">
                 <img src="images/gregory.jpg" alt="Grégory">
                 <h3>HOUY Grégory</h3>
