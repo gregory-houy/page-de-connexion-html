@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trombinoscope</title>
+    <link rel="stylesheet" type="text/css" href="style-trombi.css">
+    <style>
+        h1{
+            text-align: center;
+        }
+
+        .trombinoscope {
+            display: grid;
+            gap: 20px;
+            padding: 20px;
+            justify-content: center; /* Centrer les groupes de personnes */
+        }
+
+        .ligne-1, .ligne-2, .ligne-3, .ligne-4 {
+            display: flex;
+            gap: 20px;
+            justify-content: center; /* Centrer les personnes sur chaque ligne */
+        }
+
+        .personne {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: solid 1px #ccc;
+            width: 180px;
+            height: 200px;
+            border-radius: 20px;
+            padding: 10px;
+        }
+
+        .personne img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 5px;
+            border: 1px solid #ccc; /* Ajout d'une bordure fine comme sur l'exemple */
+        }
+
+        .personne h3 {
+            margin-top: 0;
+            margin-bottom: 2px;
+            font-size: 1em; /* Réduction de la taille de la police pour le nom */
+        }
+
+        .personne p {
+            margin-bottom: 0;
+            font-size: 0.9em; /* Réduction de la taille de la police pour les détails */
+            color: #555; /* Couleur de texte plus discrète */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>La Maison des Lycéens</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Accueil</a></li>
+                <li><a href="#">À propos</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <h1>Trombinoscope</h1>
+    <div class="trombinoscope">
+        <div class="ligne-1">
+            <div class="personne">
+                <img src="images/salome.jpg" alt="Salomé">
+                <h3>BOUDEAU Salomé</h3>
+                <p>Classe : T EBMA</p>
+                <p>Fonction : Présidente</p>
+            </div>
+            <div class="personne">
+                <img src="images/meline.jpg" alt="Méline">
+                <h3>COCHIN Méline</h3>
+                <p>Classe : T ERA</p>
+                <p>Fonction : Secrétaire</p>
+            </div>
+            <div class="personne">
+                <img src="images/antony.jpg" alt="Antony">
+                <h3>TAIEB Antony</h3>
+                <p>Classe : T MEE</p>
+                <p>Fonction : Trésorier</p>
+            </div>
+        </div>
+
+        <div class="ligne-2">
+            <div class="personne">
+                <img src="images/ewan.jpg" alt="Ewan">
+                <h3>KERVELLEC Ewan</h3>
+                <p>Classe : 1 TMA</p>
+                <p>Fonction : Vice-Président</p>
+            </div>
+            <div class="personne">
+                <img src="images/maxime.jpg" alt="Maxime">
+                <h3>THIERRY Maxime</h3>
+                <p>Classe : [Classe 5]</p>
+                <p>Fonction : Vice-Secrétaire</p>
+            </div>
+            <div class="personne">
+                <img src="images/aurelien.jpg" alt="Aurélien">
+                <h3>NAURAIS Aurélien</h3>
+                <p>Classe : 1 TRPM</p>
+                <p>Fonction : Vice-Trésorier</p>
+            </div>
+        </div>
+
+        <div class="ligne-3">
+            <div class="personne">
+                <img src="images/alicia.jpg" alt="Alicia">
+                <h3>BLANLUET Alicia</h3>
+                <p>Classe : T EBMA</p>
+                <p>Fonction : Vendeuse</p>
+            </div>
+            <div class="personne">
+                <img src="images/amaury.jpg" alt="Amaury">
+                <h3>ANFRAY-PAVY Amaury</h3>
+                <p>Classe : 1 EBMA</p>
+                <p>Fonction : Vendeur</p>
+            </div>
+            <div class="personne">
+                <img src="images/corentin.jpg" alt="Corentin">
+                <h3>WEBER Corentin</h3>
+                <p>Classe : T EBMA</p>
+                <p>Fonction : Vendeur</p>
+            </div>
+            <div class="personne">
+                <img src="images/julien.jpg" alt="Julien">
+                <h3>HEBERT Julien</h3>
+                <p>Classe : 1 TMA</p>
+                <p>Fonction : Vendeur</p>
+            </div>
+            <div class="personne">
+                <img src="images/anays.jpg" alt="Anays">
+                <h3>KERVELLEC Anays</h3>
+                <p>Classe : T ERA</p>
+                <p>Fonction : Vendeuse</p>
+            </div>
+        </div>
+
+        <div class="ligne-4">
+            <div class="personne">
+                <img src="images/gregory.jpg" alt="Grégory">
+                <h3>HOUY Grégory</h3>
+                <p>Classe : 2 TNE 56</p>
+                <p>Fonction : Constructeur site</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

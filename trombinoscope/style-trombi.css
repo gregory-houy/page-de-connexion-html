@@ -1,0 +1,78 @@
+/* Style pour le header */
+header {
+    background-color: #f8f8f8; /* Gris clair */
+    color: #333; /* Gris foncé pour le texte */
+    padding: 20px 20px;
+    border-bottom: 1px solid #eee; /* Bordure inférieure subtile */
+    display: flex;
+    justify-content: space-between; /* Espacer les éléments (logo, navigation) */
+    align-items: center; /* Alignement vertical au centre */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li:first-child {
+    margin-left: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+    transition: color 0.3s ease; /* Animation de couleur au survol */
+}
+
+nav a:hover {
+    color: #007bff; /* Couleur au survol (bleu) */
+}
+
+/* Style pour le footer */
+footer {
+    background-color: #333; /* Gris foncé */
+    color: #f8f8f8; /* Gris clair pour le texte */
+    padding: 20px;
+    text-align: center;
+    font-size: 0.9em;
+    border-top: 1px solid #555; /* Bordure supérieure subtile */
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #007bff; /* Couleur au survol (bleu) */
+}
+
+/* Vous pouvez ajouter d'autres styles généraux ici si nécessaire */
+body {
+    font-family: sans-serif; /* Police de caractères par défaut */
+    margin: 0;
+    padding-bottom: 60px; /* Pour éviter que le contenu ne soit caché par le footer fixe (si vous le rendez fixe) */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
