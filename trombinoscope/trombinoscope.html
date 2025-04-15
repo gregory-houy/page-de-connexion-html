@@ -68,7 +68,64 @@
             text-decoration: underline;
         }
 
-        
+        /* Style pour les écrans de 600px de large ou moins (téléphones) */
+        @media (max-width: 600px) {
+            .trombinoscope {
+                grid-template-columns: repeat(1, 1fr); /* Une seule colonne pour le conteneur principal */
+                gap: 10px;
+                padding: 10px;
+            }
+
+            .ligne-1, .ligne-2, .ligne-3, .ligne-4, .ligne-5, .ligne-6 {
+                display: flex;
+                gap: 10px;
+                justify-content: space-around; /* Espacer les deux personnes sur la ligne */
+                flex-wrap: wrap; /* Permettre le passage à la ligne si nécessaire */
+            }
+
+            .personne {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                border: solid 1px #ccc;
+                width: calc(50% - 5px); /* Occuper environ la moitié de la largeur */
+                height: auto;
+                border-radius: 10px;
+                padding: 8px;
+                box-sizing: border-box;
+            }
+
+            .personne img {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin-bottom: 3px;
+                border: 1px solid #ccc;
+            }
+
+            .personne h3 {
+                margin-top: 3px;
+                margin-bottom: 1px;
+                font-size: 0.9em;
+            }
+
+            .personne p {
+                margin-bottom: 0;
+                font-size: 0.8em;
+                color: #555;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                margin-bottom: 15px;
+            }
+
+            header nav ul {
+                font-size: 1em;
+            }
+        }
     </style>
 </head>
 <body>
