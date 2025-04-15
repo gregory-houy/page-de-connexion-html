@@ -12,17 +12,15 @@
 
         .trombinoscope {
             display: grid;
-            gap: 15px;
-            padding: 15px;
-            justify-content: center;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Adaptation pour les petits écrans */
+            gap: 20px;
+            padding: 20px;
+            justify-content: center; /* Centrer les groupes de personnes */
         }
 
         .ligne-1, .ligne-2, .ligne-3, .ligne-4 {
             display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap; /* Passer à la ligne sur les petits écrans */
+            gap: 20px;
+            justify-content: center; /* Centrer les personnes sur chaque ligne */
         }
 
         .personne {
@@ -31,31 +29,31 @@
             align-items: center;
             text-align: center;
             border: solid 1px #ccc;
-            width: 140px; /* Réduction de la largeur */
-            height: auto; /* Laisser la hauteur s'adapter au contenu */
-            border-radius: 15px; /* Coins un peu moins arrondis pour les petits écrans */
+            width: 180px;
+            height: 200px;
+            border-radius: 20px;
             padding: 10px;
         }
 
         .personne img {
-            width: 80px; /* Réduction de la taille de l'image */
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 5px;
-            border: 1px solid #ccc;
+            border: 1px solid #ccc; /* Ajout d'une bordure fine comme sur l'exemple */
         }
 
         .personne h3 {
-            margin-top: 5px; /* Un peu d'espace au-dessus du nom */
+            margin-top: 0;
             margin-bottom: 2px;
-            font-size: 0.9em; /* Taille de police plus petite */
+            font-size: 1em; /* Réduction de la taille de la police pour le nom */
         }
 
         .personne p {
             margin-bottom: 0;
-            font-size: 0.8em; /* Taille de police encore plus petite */
-            color: #555;
+            font-size: 0.9em; /* Réduction de la taille de la police pour les détails */
+            color: #555; /* Couleur de texte plus discrète */
         }
 
         .logout-link {
@@ -183,8 +181,12 @@
 
         async function redirectToLoginIfNotAuthenticated() {
             if (!await checkAuth()) {
+                // La redirection a déjà été effectuée par checkAuth
                 return;
             }
+            // Si l'utilisateur est connecté, vous pouvez ajouter ici
+            // du code supplémentaire à exécuter au chargement de la page.
+            // Par exemple, charger des données spécifiques au trombinoscope depuis une API.
             console.log("Utilisateur connecté, la page Trombinoscope est chargée.");
         }
 
