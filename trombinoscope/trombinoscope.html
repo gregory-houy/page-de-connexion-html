@@ -71,21 +71,21 @@
         /* Style pour les écrans de 600px de large ou moins (téléphones) */
     @media (max-width: 600px) {
         .trombinoscope {
-            grid-template-columns: repeat(1, 1fr);
+            grid-template-columns: repeat(1, 1fr); /* Une seule colonne pour le conteneur principal */
             gap: 10px;
             padding: 10px;
-            align-items: center; /* Optionnel: centre verticalement les lignes si nécessaire */
+            align-items: center; /* Centre verticalement les lignes si nécessaire */
         }
 
         .ligne-1, .ligne-2, .ligne-3, .ligne-4, .ligne-5, .ligne-6 {
             display: flex;
             gap: 10px;
             justify-content: center; /* Centre les deux personnes sur la ligne */
-            flex-wrap: wrap; /* Permet le passage à la ligne si l'espace est insuffisant */
+            flex-wrap: wrap; /* Permet le passage à la ligne si nécessaire */
         }
 
         .personne {
-            width: calc(50% - 5px);
+             width: calc(50% - 10px); /* Ajustement de la largeur */
             height: auto;
             border-radius: 10px;
             padding: 8px;
