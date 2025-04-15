@@ -6,7 +6,7 @@
     <title>Trombinoscope</title>
     <link rel="stylesheet" type="text/css" href="style-trombi.css">
     <style>
-        h1{
+        h1 {
             text-align: center;
         }
 
@@ -54,6 +54,18 @@
             margin-bottom: 0;
             font-size: 0.9em; /* Réduction de la taille de la police pour les détails */
             color: #555; /* Couleur de texte plus discrète */
+        }
+
+        .logout-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: blue;
+            text-decoration: none;
+        }
+
+        .logout-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -155,42 +167,30 @@
             </div>
         </div>
     </div>
+    <a href="../page_accueil.html" class="logout-link">Retour à l'accueil</a>
+
     <script>
-        async function displayWelcomeMessage() {
-            const username = localStorage.getItem('username');
-
-            if (username) {
-                try {
-                    const response = await fetch(`/api/users?username=${username}`);
-                    if (response.ok) {
-                        const user = await response.json();
-                        if (user && user.prenom) {
-                            document.getElementById('welcomeMessage').textContent = `Bienvenue, ${user.prenom} !`;
-                        } else {
-                            document.getElementById('welcomeMessage').textContent = `Bienvenue, ${username} !`;
-                        }
-                    } else {
-                        console.error("Erreur lors de la récupération des détails de l'utilisateur");
-                        document.getElementById('welcomeMessage').textContent = `Bienvenue, ${username} !`;
-                    }
-                } catch (error) {
-                    console.error("Erreur lors de la communication avec l'API:", error);
-                    document.getElementById('welcomeMessage').textContent = `Bienvenue !`;
-                }
-            } else {
-                window.location.href = 'index.html'; // Rediriger si non connecté
+        async function checkAuth() {
+            const isLoggedIn = localStorage.getItem('username');
+            if (!isLoggedIn) {
+                window.location.href = '../index.html';
+                return false;
             }
+            return true;
         }
 
-        document.addEventListener('DOMContentLoaded', displayWelcomeMessage);
-
-        const logoutButton = document.getElementById('logoutButton');
-        logoutButton.addEventListener('click', logout);
-
-        function logout() {
-            localStorage.removeItem('username');
-            window.location.href = 'index.html';
+        async function redirectToLoginIfNotAuthenticated() {
+            if (!await checkAuth()) {
+                // La redirection a déjà été effectuée par checkAuth
+                return;
+            }
+            // Si l'utilisateur est connecté, vous pouvez ajouter ici
+            // du code supplémentaire à exécuter au chargement de la page.
+            // Par exemple, charger des données spécifiques au trombinoscope depuis une API.
+            console.log("Utilisateur connecté, la page Trombinoscope est chargée.");
         }
+
+        document.addEventListener('DOMContentLoaded', redirectToLoginIfNotAuthenticated);
     </script>
 </body>
 </html>
