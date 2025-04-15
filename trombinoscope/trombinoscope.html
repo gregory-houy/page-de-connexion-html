@@ -74,13 +74,14 @@
             grid-template-columns: repeat(1, 1fr);
             gap: 10px;
             padding: 10px;
+            align-items: center; /* Optionnel: centre verticalement les lignes si nécessaire */
         }
 
         .ligne-1, .ligne-2, .ligne-3, .ligne-4, .ligne-5, .ligne-6 {
             display: flex;
             gap: 10px;
-            justify-content: space-around; /* Espacer les deux personnes */
-            flex-wrap: wrap;
+            justify-content: center; /* Centre les deux personnes sur la ligne */
+            flex-wrap: wrap; /* Permet le passage à la ligne si l'espace est insuffisant */
         }
 
         .personne {
