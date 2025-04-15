@@ -12,17 +12,15 @@
 
         .trombinoscope {
             display: grid;
-            gap: 10px; /* Réduction de l'espace entre les éléments */
-            padding: 10px; /* Réduction du remplissage */
+            gap: 20px;
+            padding: 20px;
             justify-content: center;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Adaptation plus agressive */
         }
 
         .ligne-1, .ligne-2, .ligne-3, .ligne-4 {
             display: flex;
-            gap: 10px; /* Réduction de l'espace entre les éléments */
+            gap: 20px;
             justify-content: center;
-            flex-wrap: wrap;
         }
 
         .personne {
@@ -31,37 +29,37 @@
             align-items: center;
             text-align: center;
             border: solid 1px #ccc;
-            width: 120px; /* Encore plus petit */
-            height: auto;
-            border-radius: 10px; /* Encore moins arrondi */
-            padding: 8px; /* Encore moins de remplissage */
+            width: 180px;
+            height: 200px;
+            border-radius: 20px;
+            padding: 10px;
         }
 
         .personne img {
-            width: 60px; /* Image encore plus petite */
-            height: 60px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 3px; /* Moins de marge sous l'image */
+            margin-bottom: 5px;
             border: 1px solid #ccc;
         }
 
         .personne h3 {
-            margin-top: 3px;
-            margin-bottom: 1px;
-            font-size: 0.8em; /* Police encore plus petite */
+            margin-top: 0;
+            margin-bottom: 2px;
+            font-size: 1em;
         }
 
         .personne p {
             margin-bottom: 0;
-            font-size: 0.7em; /* Police encore plus petite */
+            font-size: 0.9em;
             color: #555;
         }
 
         .logout-link {
             display: block;
             text-align: center;
-            margin-top: 15px; /* Moins de marge */
+            margin-top: 20px;
             color: blue;
             text-decoration: none;
         }
@@ -70,45 +68,98 @@
             text-decoration: underline;
         }
 
-        /* Media Query pour les écrans de 600px de large ou moins (typiquement les téléphones) */
-        @media (max-width: 600px) {
+        /* Style pour les écrans de 601px de large et plus (ordinateurs) */
+        @media (min-width: 601px) {
             .trombinoscope {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adaptation maximale */
-                gap: 8px;
-                padding: 8px;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Comme au début */
+                gap: 20px;
+                padding: 20px;
             }
 
             .ligne-1, .ligne-2, .ligne-3, .ligne-4 {
-                gap: 8px;
+                display: flex;
+                gap: 20px;
+                justify-content: center;
             }
 
             .personne {
-                width: 100px;
-                padding: 6px;
-                border-radius: 8px;
+                width: 180px;
+                height: 200px;
+                border-radius: 20px;
+                padding: 10px;
             }
 
             .personne img {
-                width: 50px;
-                height: 50px;
-                margin-bottom: 2px;
+                width: 100px;
+                height: 100px;
+                margin-bottom: 5px;
             }
 
             .personne h3 {
-                font-size: 0.7em;
+                font-size: 1em;
             }
 
             .personne p {
-                font-size: 0.6em;
+                font-size: 0.9em;
+            }
+        }
+
+        /* Style pour les écrans de 600px de large ou moins (téléphones) */
+        @media (max-width: 600px) {
+            .trombinoscope {
+                grid-template-columns: repeat(1, 1fr); /* Une seule colonne pour le conteneur principal */
+                gap: 10px;
+                padding: 10px;
+            }
+
+            .ligne-1, .ligne-2, .ligne-3, .ligne-4 {
+                display: flex;
+                gap: 10px;
+                justify-content: space-around; /* Espacer les deux personnes sur la ligne */
+                flex-wrap: nowrap; /* Empêcher le passage à la ligne si possible */
+            }
+
+            .personne {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                border: solid 1px #ccc;
+                width: calc(50% - 5px); /* Occuper environ la moitié de la largeur avec un peu de marge */
+                height: auto;
+                border-radius: 10px;
+                padding: 8px;
+                box-sizing: border-box; /* Inclure le padding et la bordure dans la largeur */
+            }
+
+            .personne img {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin-bottom: 3px;
+                border: 1px solid #ccc;
+            }
+
+            .personne h3 {
+                margin-top: 3px;
+                margin-bottom: 1px;
+                font-size: 0.9em;
+            }
+
+            .personne p {
+                margin-bottom: 0;
+                font-size: 0.8em;
+                color: #555;
             }
 
             h1 {
-                font-size: 1.2em; /* Titre plus petit sur mobile */
-                margin-bottom: 10px;
+                font-size: 1.5em;
+                margin-bottom: 15px;
             }
 
             header nav ul {
-                font-size: 0.9em; /* Navigation plus petite sur mobile (si elle était affichée) */
+                font-size: 1em;
             }
         }
     </style>
@@ -140,21 +191,24 @@
                 <p>Classe : T ERA</p>
                 <p>Fonction : Secrétaire</p>
             </div>
+        </div>
+
+        <div class="ligne-2">
             <div class="personne">
                 <img src="images/antony.jpg" alt="Antony">
                 <h3>TAIEB Antony</h3>
                 <p>Classe : T MEE</p>
                 <p>Fonction : Trésorier</p>
             </div>
-        </div>
-
-        <div class="ligne-2">
             <div class="personne">
                 <img src="images/ewan.jpg" alt="Ewan">
                 <h3>KERVELLEC Ewan</h3>
                 <p>Classe : 1 TMA</p>
                 <p>Fonction : Vice-Président</p>
             </div>
+        </div>
+
+        <div class="ligne-3">
             <div class="personne">
                 <img src="images/maxime.jpg" alt="Maxime">
                 <h3>THIERRY Maxime</h3>
@@ -169,7 +223,7 @@
             </div>
         </div>
 
-        <div class="ligne-3">
+        <div class="ligne-4">
             <div class="personne">
                 <img src="images/alicia.jpg" alt="Alicia">
                 <h3>BLANLUET Alicia</h3>
@@ -182,6 +236,9 @@
                 <p>Classe : 1 EBMA</p>
                 <p>Fonction : Vendeur</p>
             </div>
+        </div>
+
+        <div class="ligne-5" style="display: flex; gap: 20px; justify-content: center;">
             <div class="personne">
                 <img src="images/corentin.jpg" alt="Corentin">
                 <h3>WEBER Corentin</h3>
@@ -194,15 +251,15 @@
                 <p>Classe : 1 TMA</p>
                 <p>Fonction : Vendeur</p>
             </div>
+        </div>
+
+        <div class="ligne-6" style="display: flex; gap: 20px; justify-content: center;">
             <div class="personne">
                 <img src="images/anays.jpg" alt="Anays">
                 <h3>KERVELLEC Anays</h3>
                 <p>Classe : T ERA</p>
                 <p>Fonction : Vendeuse</p>
             </div>
-        </div>
-
-        <div class="ligne-4">
             <div class="personne">
                 <img src="images/gregory.jpg" alt="Grégory">
                 <h3>HOUY Grégory</h3>
