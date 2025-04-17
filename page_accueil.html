@@ -34,9 +34,9 @@
                     if (response.ok) {
                         const user = await response.json();
                         if (user && user.prenom) {
-                            document.getElementById('welcomeMessage').textContent = `Bienvenue, ${user.prenom} !`;
+                            document.getElementById('welcomeMessage').textContent = `Bonjour ${user.prenom} !`;
                         } else {
-                            document.getElementById('welcomeMessage').textContent = `Bienvenue, ${username} !`;
+                            document.getElementById('welcomeMessage').textContent = `Bonjour ${username} !`;
                         }
                     } else {
                         console.error("Erreur lors de la récupération des détails de l'utilisateur");
