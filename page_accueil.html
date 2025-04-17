@@ -3,32 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
+    <title>Page d'Accueil</title>
     <style>
         body { font-family: sans-serif; }
-        .container { max-width: 600px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; text-align: center;}
+        .container { max-width: 600px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
         h1 { text-align: center; }
-        p { margin-top: 10px; }
-        a { display: block; margin-top: 15px; color: blue; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        button { padding: 10px 15px; cursor: pointer; margin-top: 20px; }
+        p { text-align: center; }
+        button { display: block; width: 200px; margin: 20px auto; padding: 10px; font-size: 16px; cursor: pointer; }
+        .new-tab-link { display: block; margin-top: 20px; text-align: center; color: blue; text-decoration: none; }
+        .new-tab-link:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 id="welcomeMessage">Bienvenue !</h1>
         <p><a href="gestion_utilisateurs.html">Gestion des Utilisateurs</a></p>
-        <button onclick="logout()">Se déconnecter</button>
+        <p><a href="./inventory/inventory.html">Inventaire</a></p>
+        <p><a href="./trombinoscope/trombinoscope.html">Trombinoscope</a></p>
+        <a href="./messaging/messaging.html" class="new-tab-link" target="_blank">Messagerie Instantanée</a>
+        <button id="logoutButton">Se déconnecter</button>
     </div>
 
     <script>
-        async function getUsername() {
-            return localStorage.getItem('username');
-        }
-
         async function displayWelcomeMessage() {
-            const username = await getUsername();
-            const welcomeMessageElement = document.getElementById('welcomeMessage');
+            const username = localStorage.getItem('username');
 
             if (username) {
                 try {
@@ -36,29 +34,32 @@
                     if (response.ok) {
                         const user = await response.json();
                         if (user && user.prenom) {
-                            welcomeMessageElement.textContent = `Bonjour, ${user.prenom} !`;
+                            document.getElementById('welcomeMessage').textContent = `Bienvenue, ${user.prenom} !`;
                         } else {
-                            welcomeMessageElement.textContent = `Bonjour !`;
+                            document.getElementById('welcomeMessage').textContent = `Bienvenue, ${username} !`;
                         }
                     } else {
                         console.error("Erreur lors de la récupération des détails de l'utilisateur");
-                        welcomeMessageElement.textContent = `Bonjour !`;
+                        document.getElementById('welcomeMessage').textContent = `Bienvenue, ${username} !`;
                     }
                 } catch (error) {
-                    console.error("Erreur de réseau:", error);
-                    welcomeMessageElement.textContent = `Bonjour !`;
+                    console.error("Erreur lors de la communication avec l'API:", error);
+                    document.getElementById('welcomeMessage').textContent = `Bienvenue !`;
                 }
             } else {
-                window.location.href = 'index.html'; // Rediriger vers la page de connexion si non connecté
+                window.location.href = 'index.html'; // Rediriger si non connecté
             }
         }
 
+        document.addEventListener('DOMContentLoaded', displayWelcomeMessage);
+
+        const logoutButton = document.getElementById('logoutButton');
+        logoutButton.addEventListener('click', logout);
+
         function logout() {
             localStorage.removeItem('username');
-            window.location.href = 'index.html'; // Rediriger vers la page de connexion
+            window.location.href = 'index.html';
         }
-
-        displayWelcomeMessage();
     </script>
 </body>
 </html>

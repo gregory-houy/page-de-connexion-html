@@ -1,25 +1,17 @@
 {
-  "name": "votre-nom-de-projet",
+  "name": "page-de-connexion-html",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "@vercel/kv": "^1.0.1", // Vérifiez la dernière version
-    "bcrypt": "^5.1.1", // Vérifiez la dernière version
-    "uuid": "^8.3.2" // Ou la version que vous utilisez
+    "@vercel/kv": "^...",
+    "bcrypt": "^..."
+    // autres dépendances de production
   },
   "devDependencies": {
-    "@vercel/node": "^3.0.17" // Vérifiez la dernière version
+    "@vercel/node": "^..."
   },
-  "engines": {
-    "node": ">=18.x"
+  "scripts": {
+    "dev": "...",
+    "build": "vercel build",
+    "start": "vercel start"
   }
 }
