@@ -1,14 +1,14 @@
 [
-  { "username": "salome.boudeau", "password": "20062007", "prenom": "Salomé" },
-  { "username": "meline.cochin", "password": "16032007", "prenom": "Méline" },
-  { "username": "antony.taieb", "password": "31122005", "prenom": "Antony" },
-  { "username": "ewan.kervellec", "password": "05082008", "prenom": "Ewan" },
-  { "username": "maxime.thierry", "password": "20122008", "prenom": "Maxime" },
-  { "username": "aurelien.naurais", "password": "03022008", "prenom": "Aurélien" },
-  { "username": "alicia.blanluet", "password": "24062008", "prenom": "Alicia" },
-  { "username": "amaury.anfraypavy", "password": "31012009", "prenom": "Amaury" },
-  { "username": "julien.hebert", "password": "13082008", "prenom": "Julien" },
-  { "username": "anays.kervellec", "password": "23022006", "prenom": "Anays" },
-  { "username": "gregory.houy", "password": "31082009", "prenom": "Grégory" },
-  { "username": "administrateur", "password": "adminmdl", "prenom": "Administrateur" }
+  { "username": "salome.boudeau", "password": "20062007", "prenom": "Salomé", "fonction": "présidente" },
+  { "username": "meline.cochin", "password": "16032007", "prenom": "Méline", "fonction": "secrétaire" },
+  { "username": "antony.taieb", "password": "31122005", "prenom": "Antony", "fonction": "trésorier" },
+  { "username": "ewan.kervellec", "password": "05082008", "prenom": "Ewan", "fonction": "vice-président" },
+  { "username": "maxime.thierry", "password": "20122008", "prenom": "Maxime", "fonction": "vice-secrétaire" },
+  { "username": "aurelien.naurais", "password": "03022008", "prenom": "Aurélien", "fonction": "vice-trésorier" },
+  { "username": "alicia.blanluet", "password": "24062008", "prenom": "Alicia", "fonction": "vendeuse" },
+  { "username": "amaury.anfraypavy", "password": "31012009", "prenom": "Amaury", "fonction": "vendeur" },
+  { "username": "julien.hebert", "password": "13082008", "prenom": "Julien", "fonction": "vendeur" },
+  { "username": "anays.kervellec", "password": "23022006", "prenom": "Anays", "fonction": "vendeuse" },
+  { "username": "gregory.houy", "password": "31082009", "prenom": "Grégory", "fonction": "constructeur site" },
+  { "username": "administrateur", "password": "adminmdl", "prenom": "Administrateur", "fonction": "administrateur" }
 ]
