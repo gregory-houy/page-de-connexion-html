@@ -48,10 +48,34 @@
 
         <h2>Liste des utilisateurs</h2>
         <ul id="userList">
-            </ul>
+        </ul>
     </div>
 
     <script>
+        async function checkUserAccess() {
+            const loggedInUsername = localStorage.getItem('username');
+            const authorizedUsers = ['administrateur', 'salome.boudeau', 'gregory.houy']; // Liste des utilisateurs autorisés (À MODIFIER)
+            const gestionUtilisateursPage = 'gestion_utilisateurs.html'; // Nom de la page actuelle
+
+            if (!loggedInUsername) {
+                // Si aucun utilisateur n'est connecté, rediriger vers la page de connexion
+                alert("Vous devez être connecté pour accéder à cette page.");
+                window.location.href = 'index.html';
+                return false; // Indiquer que l'accès est refusé
+            }
+
+            if (!authorizedUsers.includes(loggedInUsername)) {
+                // Si l'utilisateur connecté n'est pas autorisé, afficher un message et rediriger
+                alert(`L'utilisateur "${loggedInUsername}" n'a pas l'autorisation d'accéder à la gestion des utilisateurs.`);
+                window.location.href = 'page_accueil.html';
+                return false; // Indiquer que l'accès est refusé
+            }
+
+            // Si l'utilisateur est connecté et autorisé, retourner true pour continuer le chargement de la page
+            console.log(`L'utilisateur "${loggedInUsername}" est autorisé à accéder à la gestion des utilisateurs.`);
+            return true;
+        }
+
         async function loadUsers() {
             const userListElement = document.getElementById('userList');
             userListElement.innerHTML = '';
@@ -136,7 +160,15 @@
             }
         }
 
-        loadUsers();
+        // Fonction principale pour gérer le chargement de la page et la vérification d'accès
+        async function initializePage() {
+            const accessGranted = await checkUserAccess();
+            if (accessGranted) {
+                loadUsers(); // Charger la liste des utilisateurs uniquement si l'accès est autorisé
+            }
+        }
+
+        initializePage();
     </script>
 </body>
 </html>
