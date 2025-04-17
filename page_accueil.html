@@ -3,74 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil - La Maison des Lycéens</title>
+    <title>Page d'Accueil</title>
     <style>
-        body { font-family: sans-serif; margin: 20px; }
+        body { font-family: sans-serif; }
+        .container { max-width: 600px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
         h1 { text-align: center; }
-        h2 { margin-bottom: 5px; }
-        p { margin-top: 5px; }
-        nav ul { list-style: none; padding: 0; text-align: center; }
-        nav ul li { display: inline; margin: 0 10px; }
-        nav a { text-decoration: none; color: blue; }
-        nav a:hover { text-decoration: underline; }
-        main { display: flex; flex-direction: column; align-items: center; }
-        button { padding: 10px 15px; cursor: pointer; }
+        p { text-align: center; }
+        a { display: block; margin-top: 20px; text-align: center; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>La Maison des Lycéens</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Accueil</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <h2 id="welcome-message">Bonjour, [prénom de l'utilisateur]</h2>
-        <p><a href="trombinoscope/trombinoscope.html">Trombinoscope</a></p>
-        <p><a href="messaging/messaging.html">Messagerie</a></p>
+    <div class="container">
+        <h1 id="welcomeMessage">Bienvenue !</h1>
         <p><a href="gestion_utilisateurs.html">Gestion des Utilisateurs</a></p>
-        <button onclick="logout()">Déconnexion</button>
-    </main>
-    <script>
-        async function getUsername() {
-            return localStorage.getItem('username');
-        }
+        <p><a href="index.html">Se déconnecter</a></p>
+    </div>
 
+    <script>
         async function displayWelcomeMessage() {
-            const username = await getUsername();
-            const welcomeMessageElement = document.getElementById('welcome-message');
+            const username = localStorage.getItem('username'); // Supposons que vous stockez le nom d'utilisateur dans le localStorage après la connexion
 
             if (username) {
                 try {
-                    const response = await fetch(`/api/users?username=${username}`);
+                    const response = await fetch(`/api/users?username=${username}`); // Créer une API pour récupérer les détails d'un utilisateur par son nom
                     if (response.ok) {
-                        const userDetails = await response.json();
-                        if (userDetails && userDetails.prenom) {
-                            welcomeMessageElement.textContent = `Bonjour ${userDetails.prenom}`;
+                        const user = await response.json();
+                        if (user && user.prenom) {
+                            document.getElementById('welcomeMessage').textContent = `Bienvenue, ${user.prenom} !`;
                         } else {
-                            welcomeMessageElement.textContent = `Bonjour, utilisateur !`;
+                            document.getElementById('welcomeMessage').textContent = `Bienvenue, ${username} !`; // Afficher le nom d'utilisateur par défaut si le prénom n'est pas trouvé
                         }
                     } else {
                         console.error("Erreur lors de la récupération des détails de l'utilisateur");
-                        welcomeMessageElement.textContent = `Bonjour, utilisateur !`;
+                        document.getElementById('welcomeMessage').textContent = `Bienvenue, ${username} !`;
                     }
                 } catch (error) {
-                    console.error("Erreur de réseau:", error);
-                    welcomeMessageElement.textContent = `Bonjour, utilisateur !`;
+                    console.error("Erreur lors de la communication avec l'API:", error);
+                    document.getElementById('welcomeMessage').textContent = `Bienvenue !`;
                 }
             } else {
-                window.location.href = 'index.html'; // Rediriger si non connecté
+                // Gérer le cas où l'utilisateur n'est pas connecté (rediriger vers la page de connexion ?)
+                document.getElementById('welcomeMessage').textContent = `Bienvenue !`;
             }
         }
 
-        function logout() {
-            localStorage.removeItem('username');
-            window.location.href = 'index.html';
-        }
-
-        document.addEventListener('DOMContentLoaded', displayWelcomeMessage);
+        displayWelcomeMessage();
     </script>
 </body>
 </html>
