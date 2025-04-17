@@ -1,5 +1,5 @@
 {
-  "name": "page-de-connexion-html",
+  "name": "votre-nom-de-projet",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,7 +12,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    // ... vos autres dépendances existantes ...
-    "uuid": "^8.3.2"
+    "@vercel/kv": "^1.0.1", // Vérifiez la dernière version
+    "bcrypt": "^5.1.1", // Vérifiez la dernière version
+    "uuid": "^8.3.2" // Ou la version que vous utilisez
+  },
+  "devDependencies": {
+    "@vercel/node": "^3.0.17" // Vérifiez la dernière version
+  },
+  "engines": {
+    "node": ">=18.x"
   }
 }

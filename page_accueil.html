@@ -3,48 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page d'Accueil</title>
+    <title>Accueil</title>
     <style>
         body { font-family: sans-serif; }
-        .container { max-width: 600px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+        .container { max-width: 600px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; text-align: center;}
         h1 { text-align: center; }
-        p { text-align: center; }
-        a { display: block; margin-top: 20px; text-align: center; }
+        p { margin-top: 10px; }
+        a { display: block; margin-top: 15px; color: blue; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        button { padding: 10px 15px; cursor: pointer; margin-top: 20px; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 id="welcomeMessage">Bienvenue !</h1>
         <p><a href="gestion_utilisateurs.html">Gestion des Utilisateurs</a></p>
-        <p><a href="index.html">Se déconnecter</a></p>
+        <button onclick="logout()">Se déconnecter</button>
     </div>
 
     <script>
+        async function getUsername() {
+            return localStorage.getItem('username');
+        }
+
         async function displayWelcomeMessage() {
-            const username = localStorage.getItem('username'); // Supposons que vous stockez le nom d'utilisateur dans le localStorage après la connexion
+            const username = await getUsername();
+            const welcomeMessageElement = document.getElementById('welcomeMessage');
 
             if (username) {
                 try {
-                    const response = await fetch(`/api/users?username=${username}`); // Créer une API pour récupérer les détails d'un utilisateur par son nom
+                    const response = await fetch(`/api/users?username=${username}`);
                     if (response.ok) {
                         const user = await response.json();
                         if (user && user.prenom) {
-                            document.getElementById('welcomeMessage').textContent = `Bienvenue, ${user.prenom} !`;
+                            welcomeMessageElement.textContent = `Bonjour, ${user.prenom} !`;
                         } else {
-                            document.getElementById('welcomeMessage').textContent = `Bienvenue, ${username} !`; // Afficher le nom d'utilisateur par défaut si le prénom n'est pas trouvé
+                            welcomeMessageElement.textContent = `Bonjour !`;
                         }
                     } else {
                         console.error("Erreur lors de la récupération des détails de l'utilisateur");
-                        document.getElementById('welcomeMessage').textContent = `Bienvenue, ${username} !`;
+                        welcomeMessageElement.textContent = `Bonjour !`;
                     }
                 } catch (error) {
-                    console.error("Erreur lors de la communication avec l'API:", error);
-                    document.getElementById('welcomeMessage').textContent = `Bienvenue !`;
+                    console.error("Erreur de réseau:", error);
+                    welcomeMessageElement.textContent = `Bonjour !`;
                 }
             } else {
-                // Gérer le cas où l'utilisateur n'est pas connecté (rediriger vers la page de connexion ?)
-                document.getElementById('welcomeMessage').textContent = `Bienvenue !`;
+                window.location.href = 'index.html'; // Rediriger vers la page de connexion si non connecté
             }
+        }
+
+        function logout() {
+            localStorage.removeItem('username');
+            window.location.href = 'index.html'; // Rediriger vers la page de connexion
         }
 
         displayWelcomeMessage();

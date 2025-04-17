@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "api/users.js": {
+      "runtime": "nodejs18.x", // Ou une version plus récente
+      "memory": 512,
+      "maxDuration": 10
+    }
+  }
+}

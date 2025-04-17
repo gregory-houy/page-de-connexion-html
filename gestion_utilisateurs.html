@@ -54,25 +54,19 @@
     <script>
         async function checkUserAccess() {
             const loggedInUsername = localStorage.getItem('username');
-            const authorizedUsers = ['administrateur', 'salome.boudeau', 'gregory.houy']; // Liste des utilisateurs autorisés (À MODIFIER)
-            const gestionUtilisateursPage = 'gestion_utilisateurs.html'; // Nom de la page actuelle
+            const authorizedUsers = ['administrateur', 'salome.boudeau', 'gregory.houy']; // Liste des utilisateurs autorisés
 
             if (!loggedInUsername) {
-                // Si aucun utilisateur n'est connecté, rediriger vers la page de connexion
                 alert("Vous devez être connecté pour accéder à cette page.");
                 window.location.href = 'index.html';
-                return false; // Indiquer que l'accès est refusé
+                return false;
             }
 
             if (!authorizedUsers.includes(loggedInUsername)) {
-                // Si l'utilisateur connecté n'est pas autorisé, afficher un message et rediriger
-                alert(`L'utilisateur "${loggedInUsername}" n'a pas l'autorisation d'accéder à la gestion des utilisateurs. Redirection en cours...`);
+                alert(`L'utilisateur "${loggedInUsername}" n'a pas l'autorisation d'accéder à la gestion des utilisateurs.`);
                 window.location.href = 'page_accueil.html';
-                return false; // Indiquer que l'accès est refusé
+                return false;
             }
-
-            // Si l'utilisateur est connecté et autorisé, retourner true pour continuer le chargement de la page
-            console.log(`L'utilisateur "${loggedInUsername}" est autorisé à accéder à la gestion des utilisateurs.`);
             return true;
         }
 
@@ -108,9 +102,9 @@
             event.preventDefault();
             const newUsername = document.getElementById('newUsername').value;
             const newPassword = document.getElementById('newPassword').value;
-            const newPrenom = document.getElementById('newPrenom').value; // Récupérer le prénom
+            const newPrenom = document.getElementById('newPrenom').value;
 
-            const newUser = { username: newUsername, password: newPassword, prenom: newPrenom }; // Inclure le prénom
+            const newUser = { username: newUsername, password: newPassword, prenom: newPrenom };
 
             try {
                 const response = await fetch('/api/users', {
@@ -140,7 +134,7 @@
         async function deleteUser(username) {
             if (confirm(`Êtes-vous sûr de vouloir supprimer l'utilisateur "${username}" ?`)) {
                 try {
-                    const response = await fetch(`/api/users?username=${username}`, { // Utiliser le paramètre username pour identifier l'utilisateur à supprimer
+                    const response = await fetch(`/api/users?username=${username}`, {
                         method: 'DELETE',
                     });
                     const data = await response.json();
@@ -160,11 +154,10 @@
             }
         }
 
-        // Fonction principale pour gérer le chargement de la page et la vérification d'accès
         async function initializePage() {
             const accessGranted = await checkUserAccess();
             if (accessGranted) {
-                loadUsers(); // Charger la liste des utilisateurs uniquement si l'accès est autorisé
+                loadUsers();
             }
         }
 
