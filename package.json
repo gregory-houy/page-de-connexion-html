@@ -1,7 +1,18 @@
 {
-  "name": "votre-nom-de-projet",
+  "name": "votre-projet-principal",
   "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "uuid": "^9.0.1"
+    // ... vos autres dépendances existantes ...
+    "uuid": "^8.3.2"
   }
 }
