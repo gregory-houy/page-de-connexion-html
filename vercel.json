@@ -1,0 +1,15 @@
+{
+  "functions": {
+    "api/users.js": {
+      "memory": 512,
+      "maxDuration": 10,
+      "runtime": "nodejs18.x",
+      "includeFiles": ["node_modules/bcrypt/**"]
+    }
+  },
+  "build": {
+    "env": {
+      "SKIP_BUILD_NATIVE_MODULES": "true"
+    }
+  }
+}
