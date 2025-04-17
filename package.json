@@ -1,19 +1,17 @@
 {
   "name": "page-de-connexion-html",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "keywords": [],
-  "author": "houyg",
-  "license": "ISC",
   "dependencies": {
-    "@vercel/kv": "^3.0.0",
-    "bcrypt": "^5.1.1",
-    "uuid": "^8.3.2"
+    "@vercel/kv": "^...",
+    "bcrypt": "^..."
+    // autres dépendances de production
+  },
+  "devDependencies": {
+    "@vercel/node": "^..."
+  },
+  "scripts": {
+    "dev": "...",
+    "build": "vercel build",
+    "start": "vercel start"
   }
 }
