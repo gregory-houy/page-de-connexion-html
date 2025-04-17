@@ -36,18 +36,6 @@ export default async function handler(req, res) {
                 }
             }
 
-            // Si un nom d'utilisateur est passé en query, retourner cet utilisateur spécifique
-            const { username: queryUsername } = req.query;
-            if (queryUsername) {
-                const userKey = `user:${queryUsername}`;
-                const userData = await kv.hgetall(userKey);
-                if (userData) {
-                    return res.status(200).json({ username: queryUsername, prenom: userData.prenom, fonction: userData.fonction });
-                } else {
-                    return res.status(404).json({ error: `Utilisateur "${queryUsername}" non trouvé.` });
-                }
-            }
-
             return res.status(200).json(users);
         } else if (req.method === 'DELETE') {
             // Supprimer un utilisateur (pas de changement nécessaire ici pour la fonction)
