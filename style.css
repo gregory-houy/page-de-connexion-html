@@ -64,3 +64,7 @@ input[type="password"] {
     margin-top: 10px;
     font-size: 0.9em;
 }
+
+img{
+    height: 75px;
+}
