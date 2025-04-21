@@ -64,7 +64,7 @@
 
             if (!authorizedUsers.includes(loggedInUsername)) {
                 // Si l'utilisateur connecté n'est pas autorisé, afficher un message et rediriger
-                alert(`L'utilisateur "${loggedInUsername}" n'a pas l'autorisation d'accéder à la de gestion des utilisateurs. Redirection en cours...`);
+                alert(`L'utilisateur "${loggedInUsername}" n'a pas l'autorisation d'accéder à la page de gestion des utilisateurs. Redirection en cours...`);
                 window.location.href = 'page_accueil.html';
                 return false; // Indiquer que l'accès est refusé
             }
