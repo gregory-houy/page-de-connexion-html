@@ -10,6 +10,6 @@
   { "username": "corentin.weber", "password": "04032008", "prenom": "Corentin" },
   { "username": "julien.hebert", "password": "13082008", "prenom": "Julien" },
   { "username": "anays.kervellec", "password": "23022006", "prenom": "Anays" },
-  { "username": "gregory.houy", "password": "31082009", "prenom": "Grégory" },
+  { "username": "gregory.houy", "password": "31/08/2009", "prenom": "Grégory" },
   { "username": "administrateur", "password": "adminmdl", "prenom": "Administrateur" }
 ]
