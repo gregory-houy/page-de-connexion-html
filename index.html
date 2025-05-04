@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Connexion</title>
-	<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div class="container" id="loginContainer">
-		<div class="logos">
-			<img src="./images/logos/mdl.png">
-			<img src="./images/logos/lycee.png">
-		</div>
-		<h1>Espace membre Connexion</h1>
-		<hr><br>
-		<form id="loginForm" action="https://page-de-connexion-html.vercel.app/api/login" method="POST">
-			<div class="form-group">
-				<label for="username">Nom d'utilisateur :</label>
-				<input type="text" id="username" name="username" required>
-			</div>
-			<div class="form-group">
-				<label for="password">Mot de passe :</label>
-				<input type="password" id="password" name="password" required>
-			</div>
-			<button type="submit" class="btn-primary">Se connecter</button>
-			<div id="errorMessage" class="error-message"></div>
-		</form>
-	</div>
+    <div class="container" id="loginContainer">
+        <div class="logos">
+            <img src="./images/logos/mdl.png" alt="Logo MDL">
+            <img src="./images/logos/lycee.png" alt="Logo Lycée">
+        </div>
+        <h1>Espace membre Connexion</h1>
+        <hr><br>
+        <form id="loginForm" action="https://page-de-connexion-html.vercel.app/api/login" method="POST">
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur :</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group password-container">
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" name="password" required>
+                <span class="password-toggle" id="passwordToggle">
+                    &#x1F441;
+                </span>
+            </div>
+            <button type="submit" class="btn-primary">Se connecter</button>
+            <div id="errorMessage" class="error-message"></div>
+        </form>
+    </div>
 
-	<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

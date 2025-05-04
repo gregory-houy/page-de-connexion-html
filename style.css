@@ -36,7 +36,7 @@ label {
 
 input[type="text"],
 input[type="password"] {
-    width: calc(100% - 12px);
+    width: calc(100% - 35px); /* Ajustement de la largeur pour l'icône */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -53,6 +53,7 @@ input[type="password"] {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
+    width: 100%; /* Le bouton prend toute la largeur */
 }
 
 .btn-primary:hover {
@@ -65,13 +66,33 @@ input[type="password"] {
     font-size: 0.9em;
 }
 
-img{
+img {
     height: 100px;
+    margin: 5px; /* Ajout de marge autour des logos */
 }
 
 .logos {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    flex-direction: row; /* Affichage des logos en ligne */
+    justify-content: center; /* Centrage horizontal des logos */
+    align-items: center; /* Centrage vertical des logos */
+    margin-bottom: 20px; /* Ajout de marge en bas des logos */
+}
+
+.password-container {
+    position: relative; /* Important pour positionner l'icône */
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 20px; /* Ajustez la taille de l'icône */
+    color: #777;
+}
+
+.password-toggle:hover {
+    color: #333;
 }
