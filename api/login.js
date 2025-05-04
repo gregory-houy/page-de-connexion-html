@@ -21,7 +21,7 @@ export default async function handler(req, res) {
       if (user) {
         return res.status(200).json({ message: 'Connexion réussie.' });
       } else {
-        return res.status(401).json({ error: 'Identifiants incorrects.' });
+        return res.status(401).json({ error: 'Identifiants et/ou mot de passe incorrect.' });
       }
     } catch (error) {
       console.error('Erreur lors de la lecture de users.json:', error);
