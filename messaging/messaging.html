@@ -4,27 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Messagerie Privée</title>
-    <link rel="stylesheet" href="style.css">
     <style>
-        /* Styles spécifiques à la messagerie qui surchargent ou complètent style.css */
         body {
-            display: flex; /* Conserver flex pour la mise en page principale */
-            flex-direction: column;
-            min-height: 100vh; /* Assurer que le body prend au moins toute la hauteur */
-        }
-
-        .container {
-            flex-grow: 1; /* Permettre au conteneur de grandir et occuper l'espace */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
             display: flex;
             flex-direction: column;
-            padding: 20px; /* Réduire le padding par défaut du container pour la messagerie */
-            max-width: 960px; /* Garder une largeur maximale raisonnable */
-            margin: 20px auto; /* Centrer et ajouter des marges */
+            height: 100vh;
+            background-color: #f4f6f8;
+            color: #333;
         }
 
-        h1 {
-            text-align: center; /* Centrer le titre de la page */
-            margin-bottom: 20px;
+        #logout-link {
+            display: block;
+            text-align: right;
+            padding: 10px 20px;
+            color: #007bff;
+            text-decoration: none;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        #logout-link:hover {
+            text-decoration: underline;
+            background-color: #e9ecef;
+        }
+
+        .chat-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
         }
 
         #recipient-area {
@@ -42,7 +51,7 @@
         #recipient-select {
             padding: 10px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 5px;
             flex-grow: 1;
             max-width: 300px;
             font-size: 16px;
@@ -53,7 +62,7 @@
             flex-grow: 1;
             overflow-y: auto;
             padding: 10px;
-            background-color: #f9f9f9; /* Fond légèrement gris pour la zone de messages */
+            background-color: white;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
             margin-bottom: 15px;
@@ -93,7 +102,7 @@
         #input-area {
             display: flex;
             padding: 15px;
-            background-color: #fff;
+            background-color: white;
             border-top: 1px solid #e0e0e0;
             border-radius: 0 0 8px 8px;
             align-items: center;
@@ -104,21 +113,21 @@
             flex-grow: 1;
             padding: 10px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 5px;
             margin-right: 10px;
             font-size: 16px;
             color: #333;
         }
 
         #send-button {
-            background-color: #007bff;
-            color: white;
             padding: 10px 15px;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
             cursor: pointer;
             font-size: 16px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.2s ease;
         }
 
         #send-button:hover {
@@ -132,31 +141,11 @@
             font-style: italic;
             color: #999;
         }
-
-        .logout-button { /* Style pour le bouton de déconnexion */
-            display: block;
-            width: 150px;
-            margin: 20px auto 10px auto; /* Centrer et ajouter des marges */
-            padding: 10px 15px;
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            text-decoration: none;
-            text-align: center;
-            transition: background-color 0.3s ease;
-        }
-
-        .logout-button:hover {
-            background-color: #c82333;
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Messagerie Privée</h1>
+    <a id="logout-link" href="../index.html">Se déconnecter</a>
+    <div class="chat-container">
         <div id="recipient-area">
             <label for="recipient-select">Envoyer à:</label>
             <select id="recipient-select">
@@ -168,10 +157,8 @@
         </div>
         <div id="input-area">
             <input type="text" id="message-input" placeholder="Votre message">
-            <button id="send-button" class="btn-primary">Envoyer</button>
+            <button id="send-button">Envoyer</button>
         </div>
-        <a href="../page_accueil.html" class="back-link">Retour à l'accueil</a>
-        <a href="../index.html" class="logout-button">Se déconnecter</a>
     </div>
 
     <script>
@@ -241,6 +228,7 @@
                                 }
                                 messageContainer.appendChild(div);
                             });
+                            // Faire défiler vers le bas pour afficher les derniers messages
                             messageContainer.scrollTop = messageContainer.scrollHeight;
                         }
                     } else {
@@ -299,6 +287,7 @@
             checkAuth();
             loadUsersForDropdown();
             loadMessages(); // Charger initialement même sans destinataire sélectionné
+            // Remplacer par WebSocket pour une application réelle
             setInterval(loadMessages, 3000);
         });
     </script>
