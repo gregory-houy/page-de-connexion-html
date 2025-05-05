@@ -1,17 +1,37 @@
+/* Styles généraux pour le body et le container (cohérent avec les autres pages) */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px; /* Conserver la largeur maximale */
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 /* Style pour le header */
 header {
-    background-color: #f8f8f8; /* Gris clair */
-    color: #333; /* Gris foncé pour le texte */
-    padding: 20px 20px;
-    border-bottom: 1px solid #eee; /* Bordure inférieure subtile */
+    background-color: #fff; /* Fond blanc, comme le conteneur */
+    color: #2d3748; /* Couleur de texte plus foncée */
+    padding: 20px 30px; /* Mêmes paddings que le container */
+    border-bottom: 2px solid #edf2f7; /* Bordure plus claire et plus épaisse */
     display: flex;
-    justify-content: space-between; /* Espacer les éléments (logo, navigation) */
-    align-items: center; /* Alignement vertical au centre */
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px 8px 0 0; /* Bords arrondis en haut */
+    margin-bottom: 20px; /* Espacement sous le header */
 }
 
 header h1 {
     margin: 0;
-    font-size: 2em;
+    font-size: 2.2em;
 }
 
 nav ul {
@@ -22,7 +42,7 @@ nav ul {
 }
 
 nav ul li {
-    margin-left: 20px;
+    margin-left: 25px;
 }
 
 nav ul li:first-child {
@@ -31,48 +51,40 @@ nav ul li:first-child {
 
 nav a {
     text-decoration: none;
-    color: #555;
-    font-weight: bold;
-    transition: color 0.3s ease; /* Animation de couleur au survol */
+    color: #4a5568; /* Couleur de lien plus grise */
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
 }
 
 nav a:hover {
-    color: #007bff; /* Couleur au survol (bleu) */
+    color: #4299e1; /* Couleur au survol (bleu plus doux) */
 }
 
 /* Style pour le footer */
 footer {
-    background-color: #333; /* Gris foncé */
-    color: #f8f8f8; /* Gris clair pour le texte */
-    padding: 20px;
+    background-color: #4a5568; /* Gris plus foncé */
+    color: #edf2f7; /* Gris très clair pour le texte */
+    padding: 25px 30px; /* Mêmes paddings que le container */
     text-align: center;
-    font-size: 0.9em;
-    border-top: 1px solid #555; /* Bordure supérieure subtile */
+    font-size: 0.9rem;
+    border-top: 2px solid #cbd5e0; /* Bordure plus claire et plus épaisse */
+    border-radius: 0 0 8px 8px; /* Bords arrondis en bas */
+    margin-top: 30px; /* Espacement au-dessus du footer */
 }
 
 footer p {
-    margin: 5px 0;
+    margin: 8px 0;
 }
 
 footer a {
-    color: #fff;
+    color: #f7fafc;
     text-decoration: none;
-    transition: color 0.3s ease;
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
 }
 
 footer a:hover {
-    color: #007bff; /* Couleur au survol (bleu) */
+    color: #4299e1; /* Couleur au survol (bleu plus doux) */
 }
 
-/* Vous pouvez ajouter d'autres styles généraux ici si nécessaire */
-body {
-    font-family: sans-serif; /* Police de caractères par défaut */
-    margin: 0;
-    padding-bottom: 60px; /* Pour éviter que le contenu ne soit caché par le footer fixe (si vous le rendez fixe) */
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
+/* Vous pouvez ajouter d'autres styles spécifiques au trombinoscope ici */
