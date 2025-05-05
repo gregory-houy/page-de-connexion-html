@@ -10,7 +10,7 @@
         h1 { color: #333; margin-bottom: 20px; }
         .link-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Ajustez la largeur minimale des boîtes */
             gap: 20px;
             margin-top: 20px;
         }
@@ -31,64 +31,54 @@
         .link-box:hover {
             background-color: #d1d1d1;
         }
-        nav { display: none; /* Cacher la navigation en liste */ }
         .logout-button { display: block; width: 150px; margin: 20px auto; padding: 10px 15px; background-color: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; }
         .logout-button:hover { background-color: #c82333; }
-        .new-tab-link { /* Style pour le lien de messagerie */
-            background-color: #007bff;
-            color: white;
-            padding: 20px;
-            border-radius: 6px;
-            text-align: center;
-            text-decoration: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            font-size: 1.1em;
-            transition: background-color 0.3s ease;
-            margin: 20px auto; /* Centrer la boîte de messagerie */
-            max-width: 200px; /* Limiter la largeur si nécessaire */
-        }
-        .new-tab-link:hover {
-            background-color: #0056b3;
-        }
+        nav { display: none; } /* Cacher la navigation en liste */
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Bienvenue !</h1>
-        <nav>
-            <a href="#">Accueil</a>
-            <a href="gestion_utilisateurs.html">Gestion des Utilisateurs</a>
-            <a href="./inventory/inventory.html">Inventaire</a>
-            <a href="./trombinoscope/trombinoscope.html">Trombinoscope</a>
-            <a href="./messaging/messaging.html" class="new-tab-link" target="_blank">Messagerie Instantanée</a>
-        </nav>
+        <h1 id="welcomeMessage">Bienvenue !</h1>
 
         <div class="link-grid">
             <a href="gestion_utilisateurs.html" class="link-box">Gestion des Utilisateurs</a>
             <a href="./inventory/inventory.html" class="link-box">Inventaire</a>
             <a href="./trombinoscope/trombinoscope.html" class="link-box">Trombinoscope</a>
-            </div>
-
-        <a href="./messaging/messaging.html" class="new-tab-link" target="_blank">Messagerie Instantanée</a>
+            <a href="./messaging/messaging.html" class="link-box" target="_blank">Messagerie Instantanée</a>
+        </div>
 
         <button id="logoutButton" class="logout-button">Se déconnecter</button>
     </div>
 
     <script>
-        // La fonction getUsers et displayUsers ont été supprimées car nous n'affichons plus la liste des utilisateurs.
-
-        document.addEventListener('DOMContentLoaded', () => {
+        async function displayWelcomeMessage() {
             const username = localStorage.getItem('username');
-            const welcomeMessageElement = document.querySelector('h1');
+            const welcomeMessageElement = document.getElementById('welcomeMessage');
+
             if (username) {
-                welcomeMessageElement.textContent = `Bienvenue !`; // Message de bienvenue générique
+                try {
+                    const response = await fetch(`/api/users?username=${username}`);
+                    if (response.ok) {
+                        const user = await response.json();
+                        if (user && user.prenom) {
+                            welcomeMessageElement.textContent = `Bonjour, ${user.prenom} !`;
+                        } else {
+                            welcomeMessageElement.textContent = `Bonjour !`;
+                        }
+                    } else {
+                        console.error("Erreur lors de la récupération des détails de l'utilisateur");
+                        welcomeMessageElement.textContent = `Bonjour !`;
+                    }
+                } catch (error) {
+                    console.error("Erreur lors de la communication avec l'API:", error);
+                    welcomeMessageElement.textContent = `Bonjour !`;
+                }
             } else {
-                welcomeMessageElement.textContent = `Bienvenue ! Veuillez vous connecter.`; // Message si non connecté
+                welcomeMessageElement.textContent = `Bienvenue ! Veuillez vous connecter.`;
             }
-        });
+        }
+
+        document.addEventListener('DOMContentLoaded', displayWelcomeMessage);
 
         const logoutButton = document.getElementById('logoutButton');
         logoutButton.addEventListener('click', logout);
