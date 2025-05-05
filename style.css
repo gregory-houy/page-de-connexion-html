@@ -1,40 +1,40 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
+    margin: 20px; /* Ajout de marges autour du corps */
     padding: 0;
-    background-color: #f3f4f6;
+    background-color: #f4f4f4; /* Fond gris clair */
     color: #333;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    justify-content: center; /* Centrer le contenu horizontalement */
+    align-items: flex-start; /* Aligner le conteneur en haut (ou centrer si min-height est conservé) */
+    min-height: auto; /* Rendre la hauteur automatique pour s'adapter au contenu */
 }
 
 .container {
-    max-width: 960px; /* Plus large pour s'adapter au contenu */
-    margin: 30px auto;
-    padding: 30px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center; /* Généralement centré, peut être overridden */
+    max-width: 960px; /* Largeur maximale du conteneur */
+    margin: 20px auto; /* Marges haut/bas et centrage horizontal */
+    padding: 30px; /* Espace intérieur */
+    background-color: #fff; /* Fond blanc du conteneur */
+    border-radius: 8px; /* Bords arrondis */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    text-align: center; /* Texte centré par défaut */
 }
 
 h1 {
     text-align: center;
-    color: #2d3748;
+    color: #2d3748; /* Couleur de titre plus foncée */
     margin-bottom: 30px;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 25px; /* Plus d'espace entre les groupes de formulaire */
     text-align: left;
 }
 
 label {
     display: block;
     margin-bottom: 8px;
-    color: #4a5568;
+    color: #4a5568; /* Couleur de label plus grise */
     font-weight: 500;
 }
 
@@ -43,14 +43,14 @@ input[type="password"] {
     width: calc(100% - 24px); /* Ajustement pour le padding */
     padding: 12px;
     margin-bottom: 15px;
-    border: 1px solid #cbd5e0;
+    border: 1px solid #cbd5e0; /* Bordure plus claire */
     border-radius: 6px;
     box-sizing: border-box;
     font-size: 1rem;
 }
 
 .btn-primary {
-    background-color: #4299e1;
+    background-color: #4299e1; /* Bleu plus doux */
     color: white;
     padding: 12px 20px;
     border: none;
@@ -61,11 +61,11 @@ input[type="password"] {
 }
 
 .btn-primary:hover {
-    background-color: #2b6cb0;
+    background-color: #2b6cb0; /* Bleu plus foncé au survol */
 }
 
 .error-message {
-    color: #e53e3e;
+    color: #e53e3e; /* Rouge pour les erreurs */
     margin-top: 20px;
     font-weight: bold;
     text-align: center;
@@ -73,7 +73,7 @@ input[type="password"] {
 
 img {
     height: 100px;
-    margin-bottom: 20px; /* Ajout de marge sous le logo */
+    margin-bottom: 25px; /* Plus d'espace sous le logo */
 }
 
 .logos {
@@ -81,5 +81,5 @@ img {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-bottom: 30px; /* Plus de marge pour l'espace */
+    margin-bottom: 40px; /* Encore plus d'espace après les logos */
 }
