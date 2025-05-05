@@ -1,76 +1,127 @@
 <!DOCTYPE html>
-<html lang="fr"><head>
+<html lang="fr">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Utilisateurs</title>
     <style>
-        body { font-family: sans-serif; }
-        .container { max-width: 600px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
-        h1 { text-align: center; }
-        h2 { margin-top: 20px; }
-        label { display: block; margin-bottom: 5px; }
-        input[type="text"], input[type="password"] { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background-color: #0056b3; }
-        #message, #error { margin-top: 10px; font-weight: bold; text-align: center; }
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; }
+        .container { max-width: 960px; margin: 20px auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+        h1 { text-align: center; color: #333; margin-bottom: 30px; }
+        h2 { color: #555; margin-top: 30px; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        label { display: block; margin-bottom: 5px; color: #333; font-weight: bold; }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #message, #error { margin-top: 15px; font-weight: bold; text-align: center; }
         #message { color: green; }
         #error { color: red; }
-        ul { list-style-type: none; padding: 0; margin-top: 20px; border: 1px solid #ccc; border-radius: 4px; padding: 10px; }
-        li { padding: 8px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-        li:last-child { border-bottom: none; }
-        li button { background-color: #dc3545; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
-        li button:hover { background-color: #c82333; }
-        a { display: block; margin-top: 20px; text-align: center; color: blue; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        .user-list-container { margin-top: 30px; }
+        .user-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            list-style-type: none;
+            padding: 0;
+        }
+        .user-item {
+            background-color: #e9ecef;
+            padding: 10px 15px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .user-item button {
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+        }
+        .user-item button:hover {
+            background-color: #c82333;
+        }
+        .back-link { display: block; margin-top: 20px; text-align: center; color: blue; text-decoration: none; }
+        .back-link:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Gestion des Utilisateurs</h1>
-        <p><a href="page_accueil.html">Retour à l'accueil</a></p>
+        <a href="page_accueil.html" class="back-link">Retour à l'accueil</a>
 
         <h2>Ajouter un utilisateur</h2>
         <form id="addUserForm">
-            <label for="newUsername">Nom d'utilisateur:</label>
-            <input type="text" id="newUsername" name="newUsername" required=""><br>
-
-            <label for="newPassword">Mot de passe:</label>
-            <input type="password" id="newPassword" name="newPassword" required=""><br>
-
-            <label for="newPrenom">Prénom:</label>
-            <input type="text" id="newPrenom" name="newPrenom" required=""><br>
-
-            <button type="submit">Ajouter un utilisateur</button>
+            <div class="form-grid">
+                <div>
+                    <label for="newUsername">Nom d'utilisateur:</label>
+                    <input type="text" id="newUsername" name="newUsername" required>
+                </div>
+                <div>
+                    <label for="newPassword">Mot de passe:</label>
+                    <input type="password" id="newPassword" name="newPassword" required>
+                </div>
+                <div>
+                    <label for="newPrenom">Prénom:</label>
+                    <input type="text" id="newPrenom" name="newPrenom" required>
+                </div>
+                <button type="submit">Ajouter un utilisateur</button>
+            </div>
             <div id="message"></div>
             <div id="error"></div>
         </form>
 
-        <h2>Liste des utilisateurs</h2>
-        <ul id="userList"><li>salome.boudeau (Salomé)<button>Supprimer</button></li><li>meline.cochin (Méline)<button>Supprimer</button></li><li>antony.taieb (Antony)<button>Supprimer</button></li><li>ewan.kervellec (Ewan)<button>Supprimer</button></li><li>aurelien.naurais (Aurélien)<button>Supprimer</button></li><li>alicia.blanluet (Alicia)<button>Supprimer</button></li><li>amaury.anfraypavy (Amaury)<button>Supprimer</button></li><li>julien.hebert (Julien)<button>Supprimer</button></li><li>anays.kervellec (Anays)<button>Supprimer</button></li><li>gregory.houy (Grégory)<button>Supprimer</button></li><li>administrateur (Administrateur)<button>Supprimer</button></li></ul>
+        <div class="user-list-container">
+            <h2>Liste des utilisateurs</h2>
+            <ul class="user-grid" id="userList">
+                </ul>
+        </div>
     </div>
 
     <script>
         async function checkUserAccess() {
             const loggedInUsername = localStorage.getItem('username');
-            const authorizedUsers = ['administrateur', 'salome.boudeau', 'gregory.houy']; // Liste des utilisateurs autorisés (À MODIFIER)
-            const gestionUtilisateursPage = 'gestion_utilisateurs.html'; // Nom de la page actuelle
+            const authorizedUsers = ['administrateur', 'salome.boudeau', 'gregory.houy']; // Liste des utilisateurs autorisés
 
             if (!loggedInUsername) {
-                // Si aucun utilisateur n'est connecté, rediriger vers la page de connexion
                 alert("Vous devez être connecté pour accéder à cette page.");
                 window.location.href = 'index.html';
-                return false; // Indiquer que l'accès est refusé
+                return false;
             }
 
             if (!authorizedUsers.includes(loggedInUsername)) {
-                // Si l'utilisateur connecté n'est pas autorisé, afficher un message et rediriger
-                alert(`L'utilisateur "${loggedInUsername}" n'a pas l'autorisation d'accéder à la page de gestion des utilisateurs. Redirection en cours...`);
+                alert(`L'utilisateur "${loggedInUsername}" n'a pas l'autorisation d'accéder à la page de gestion des utilisateurs.`);
                 window.location.href = 'page_accueil.html';
-                return false; // Indiquer que l'accès est refusé
+                return false;
             }
-
-            // Si l'utilisateur est connecté et autorisé, retourner true pour continuer le chargement de la page
-            console.log(`L'utilisateur "${loggedInUsername}" est autorisé à accéder à la gestion des utilisateurs.`);
             return true;
         }
 
@@ -83,6 +134,7 @@
                     const users = await response.json();
                     users.forEach(user => {
                         const listItem = document.createElement('li');
+                        listItem.classList.add('user-item');
                         listItem.textContent = `${user.username} (${user.prenom})`;
                         const deleteButton = document.createElement('button');
                         deleteButton.textContent = 'Supprimer';
@@ -92,9 +144,11 @@
                     });
                 } else {
                     console.error("Erreur lors du chargement des utilisateurs");
+                    userListElement.innerHTML = '<li>Erreur lors du chargement des utilisateurs.</li>';
                 }
             } catch (error) {
                 console.error("Erreur de réseau:", error);
+                userListElement.innerHTML = '<li>Erreur de réseau lors du chargement des utilisateurs.</li>';
             }
         }
 
@@ -106,9 +160,9 @@
             event.preventDefault();
             const newUsername = document.getElementById('newUsername').value;
             const newPassword = document.getElementById('newPassword').value;
-            const newPrenom = document.getElementById('newPrenom').value; // Récupérer le prénom
+            const newPrenom = document.getElementById('newPrenom').value;
 
-            const newUser = { username: newUsername, password: newPassword, prenom: newPrenom }; // Inclure le prénom
+            const newUser = { username: newUsername, password: newPassword, prenom: newPrenom };
 
             try {
                 const response = await fetch('/api/users', {
@@ -138,7 +192,7 @@
         async function deleteUser(username) {
             if (confirm(`Êtes-vous sûr de vouloir supprimer l'utilisateur "${username}" ?`)) {
                 try {
-                    const response = await fetch(`/api/users?username=${username}`, { // Utiliser le paramètre username pour identifier l'utilisateur à supprimer
+                    const response = await fetch(`/api/users?username=${username}`, {
                         method: 'DELETE',
                     });
                     const data = await response.json();
@@ -158,11 +212,10 @@
             }
         }
 
-        // Fonction principale pour gérer le chargement de la page et la vérification d'accès
         async function initializePage() {
             const accessGranted = await checkUserAccess();
             if (accessGranted) {
-                loadUsers(); // Charger la liste des utilisateurs uniquement si l'accès est autorisé
+                loadUsers();
             }
         }
 
