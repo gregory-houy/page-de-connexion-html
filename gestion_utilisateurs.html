@@ -154,7 +154,7 @@
         <div class="user-list-container">
             <h2>Liste des utilisateurs</h2>
             <ul class="user-grid" id="userList">
-            </ul>
+                </ul>
         </div>
     </div>
 
@@ -184,7 +184,6 @@
                 const response = await fetch('/api/users');
                 if (response.ok) {
                     const users = await response.json();
-                    const loggedInUsername = localStorage.getItem('username');
                     users.forEach(user => {
                         const listItem = document.createElement('li');
                         listItem.classList.add('user-item');
@@ -193,14 +192,7 @@
                         listItem.appendChild(userInfo);
                         const deleteButton = document.createElement('button');
                         deleteButton.textContent = 'Supprimer';
-                        // Désactiver le bouton de suppression pour l'utilisateur connecté
-                        if (user.username === loggedInUsername) {
-                            deleteButton.disabled = true;
-                            deleteButton.style.backgroundColor = '#6c757d';
-                            deleteButton.style.cursor = 'not-allowed';
-                        } else {
-                            deleteButton.onclick = () => deleteUser(user.username);
-                        }
+                        deleteButton.onclick = () => deleteUser(user.username);
                         listItem.appendChild(deleteButton);
                         userListElement.appendChild(listItem);
                     });
@@ -252,11 +244,6 @@
         });
 
         async function deleteUser(username) {
-            const loggedInUsername = localStorage.getItem('username');
-            if (username === loggedInUsername) {
-                alert("Vous ne pouvez pas supprimer votre propre compte.");
-                return;
-            }
             if (confirm(`Êtes-vous sûr de vouloir supprimer l'utilisateur "${username}" ?`)) {
                 try {
                     const response = await fetch(`/api/users?username=${username}`, {

@@ -4,90 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page d'Accueil</title>
-    <style>
-        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; }
-        .container { max-width: 960px; margin: 20px auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); text-align: center; }
-        h1 { color: #333; margin-bottom: 20px; }
-        .link-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Ajustez la largeur minimale des boîtes */
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .link-box {
-            background-color: #e9ecef;
-            padding: 20px;
-            border-radius: 6px;
-            text-align: center;
-            text-decoration: none;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            font-size: 1.1em;
-            transition: background-color 0.3s ease;
-            border: 1px solid black;
-        }
-        .link-box:hover {
-            background-color: #d1d1d1;
-        }
-        .logout-button { display: block; width: 150px; margin: 20px auto; padding: 10px 15px; background-color: #ff0000; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        .logout-button:hover { background-color: #ff2a2a; }
-        nav { display: none; } /* Cacher la navigation en liste */
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1 id="welcomeMessage">Bienvenue !</h1>
-
-        <div class="link-grid">
-            <a href="gestion_utilisateurs.html" class="link-box">Gestion des Utilisateurs</a>
-            <a href="./inventory/inventory.html" class="link-box">Inventaire</a>
-            <a href="./trombinoscope/trombinoscope.html" class="link-box">Trombinoscope</a>
-            <a href="./messaging/messaging.html" class="link-box" target="_blank">Messagerie Instantanée</a>
+        <h1>Page d'Accueil</h1>
+        <div id="welcome-message">
         </div>
-
-        <button id="logoutButton" class="logout-button">Se déconnecter</button>
+        <p><a href="trombinoscope/trombinoscope.html" class="link-page">Trombinoscope</a></p>
+        <p><a href="messaging/messaging.html" class="link-page">Messagerie Privée</a></p>
+        <p><a href="gestion_utilisateurs/gestion_utilisateurs.html" class="link-page">Gestion des Utilisateurs</a></p>
+        <button id="logout-button" class="logout-button" style="display:none;">Se déconnecter</button>
     </div>
 
-    <script>
-        async function displayWelcomeMessage() {
-            const username = localStorage.getItem('username');
-            const welcomeMessageElement = document.getElementById('welcomeMessage');
+    <footer>
+        <p>&copy; 2025 Mon Site ESIEA</p>
+        <p><a href="#">Mentions Légales</a> | <a href="#">Politique de Confidentialité</a></p>
+    </footer>
 
-            if (username) {
-                try {
-                    const response = await fetch(`/api/users?username=${username}`);
-                    if (response.ok) {
-                        const user = await response.json();
-                        if (user && user.prenom) {
-                            welcomeMessageElement.textContent = `Bonjour, ${user.prenom} !`;
-                        } else {
-                            welcomeMessageElement.textContent = `Bonjour !`;
-                        }
-                    } else {
-                        console.error("Erreur lors de la récupération des détails de l'utilisateur");
-                        welcomeMessageElement.textContent = `Bonjour !`;
-                    }
-                } catch (error) {
-                    console.error("Erreur lors de la communication avec l'API:", error);
-                    welcomeMessageElement.textContent = `Bonjour !`;
-                }
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuthentication();
+        });
+
+        async function checkAuthentication() {
+            const isLoggedIn = localStorage.getItem('username');
+            if (!isLoggedIn) {
+                // Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
+                window.location.href = '../index.html';
             } else {
-                welcomeMessageElement.textContent = `Bienvenue ! Veuillez vous connecter.`;
+                // Si l'utilisateur est connecté, afficher le bouton de déconnexion et le message de bienvenue
+                const logoutButton = document.getElementById('logout-button');
+                if (logoutButton) {
+                    logoutButton.style.display = 'block';
+                    logoutButton.addEventListener('click', () => {
+                        localStorage.removeItem('username');
+                        window.location.href = '../index.html'; // Rediriger après la déconnexion
+                    });
+                }
+                const welcomeMessage = document.getElementById('welcome-message');
+                if (welcomeMessage) {
+                    welcomeMessage.textContent = `Bienvenue, ${isLoggedIn} !`; // Afficher un message de bienvenue personnalisé
+                }
             }
         }
-
-        document.addEventListener('DOMContentLoaded', displayWelcomeMessage);
-
-        const logoutButton = document.getElementById('logoutButton');
-        logoutButton.addEventListener('click', logout);
-
-        function logout() {
-            localStorage.removeItem('username');
-            window.location.href = 'index.html';
-        }
     </script>
-
-</body></html>
+</body>
+</html>
