@@ -88,6 +88,28 @@
             localStorage.removeItem('username');
             window.location.href = 'index.html';
         }
+
+        async function checkAuth() {
+            const isLoggedIn = localStorage.getItem('username');
+            if (!isLoggedIn) {
+                window.location.href = '../index.html';
+                return false;
+            }
+            return true;
+        }
+
+        async function redirectToLoginIfNotAuthenticated() {
+            if (!await checkAuth()) {
+                // La redirection a déjà été effectuée par checkAuth
+                return;
+            }
+            // Si l'utilisateur est connecté, vous pouvez ajouter ici
+            // du code supplémentaire à exécuter au chargement de la page.
+            // Par exemple, charger des données spécifiques au trombinoscope depuis une API.
+            console.log("Utilisateur connecté, la page Trombinoscope est chargée.");
+        }
+
+        document.addEventListener('DOMContentLoaded', redirectToLoginIfNotAuthenticated);
     </script>
 
 </body></html>
